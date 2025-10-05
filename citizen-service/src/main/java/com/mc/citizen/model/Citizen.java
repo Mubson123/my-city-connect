@@ -47,5 +47,4 @@ public class Citizen {
     @ElementCollection
     @CollectionTable(name = "Citizen_identification", joinColumns = @JoinColumn(name = "citizen_id"))
     private Set<Identification> identification = new LinkedHashSet<>();
-
 }
