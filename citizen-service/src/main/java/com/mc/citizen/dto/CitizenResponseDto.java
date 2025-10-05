@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
 
@@ -19,6 +20,8 @@ import java.util.UUID;
 @AllArgsConstructor
 public class CitizenResponseDto implements Serializable {
     UUID id;
+    LocalDateTime createdAt;
+    LocalDateTime updatedAt;
     Set<Title> titles;
     Gender gender;
     String firstName;

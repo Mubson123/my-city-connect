@@ -5,6 +5,8 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @Builder
@@ -13,10 +15,12 @@ import lombok.*;
 @NoArgsConstructor
 public class Identification {
     @NonNull
-    private String nationality;
-    @NonNull
     @Enumerated(EnumType.STRING)
     private IDType idType;
     @NonNull
     private String idNumber;
+    @NonNull
+    private LocalDate issuedDate;
+    @NonNull
+    private LocalDate expirationDate;
 }
