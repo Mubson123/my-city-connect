@@ -1,6 +1,8 @@
 package com.mc.citizen.service;
 
-import com.mc.citizen.dto.CitizenResponseDto;
+import com.mc.citizen.exception.CitizenAlreadyExistsByEmailException;
+import com.mc.citizen.model.dto.CitizenRequestDto;
+import com.mc.citizen.model.dto.CitizenResponseDto;
 import com.mc.citizen.exception.CitizenNotFoundException;
 import com.mc.citizen.mapper.CitizenMapper;
 import com.mc.citizen.model.Citizen;
@@ -31,10 +33,24 @@ public class CitizenServiceImpl implements CitizenService {
 
     @Override
     public CitizenResponseDto getCitizenById(UUID citizenId) {
-        Citizen citizen = citizenRepository
-                .findById(citizenId)
-                .orElseThrow(() -> new CitizenNotFoundException(
-                        String.format("Citizen with ID '%s' not found", citizenId)));
+        Citizen citizen =
+                citizenRepository
+                        .findById(citizenId)
+                        .orElseThrow(
+                                () ->
+                                        new CitizenNotFoundException(
+                                                String.format("Citizen with ID '%s' not found", citizenId)));
+        return citizenMapper.toResponseDto(citizen);
+    }
+
+    @Override
+    public CitizenResponseDto createCitizen(CitizenRequestDto citizenRequestDto) {
+        boolean citizenExistsById = citizenRepository.existsByEmail(citizenRequestDto.email());
+        if (citizenExistsById) {
+            throw new CitizenAlreadyExistsByEmailException("Citizen with email '" + citizenRequestDto.email() + "' already exists");
+        }
+        Citizen citizen = citizenMapper.toEntity(citizenRequestDto);
+        citizen = citizenRepository.save(citizen);
         return citizenMapper.toResponseDto(citizen);
     }
 }

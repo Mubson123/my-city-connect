@@ -1,6 +1,8 @@
 package com.mc.citizen.service;
 
-import com.mc.citizen.dto.CitizenResponseDto;
+import com.mc.citizen.exception.CitizenAlreadyExistsByEmailException;
+import com.mc.citizen.model.dto.CitizenRequestDto;
+import com.mc.citizen.model.dto.CitizenResponseDto;
 import com.mc.citizen.exception.CitizenNotFoundException;
 import com.mc.citizen.fixtures.CitizenFixtures;
 import com.mc.citizen.mapper.CitizenMapperImpl;
@@ -27,7 +29,7 @@ class CitizenServiceTest {
     @Mock
     private CitizenRepository citizenRepository;
     @Mock
-    private CitizenMapperImpl  citizenMapper;
+    private CitizenMapperImpl citizenMapper;
     @InjectMocks
     private CitizenServiceImpl citizenService;
 
@@ -36,7 +38,7 @@ class CitizenServiceTest {
     void shouldReturnAllGivenCitizensSuccessfully() {
         int from = 0;
         int until = 2;
-        List<Citizen>  citizens = CitizenFixtures.citizenList;
+        List<Citizen> citizens = CitizenFixtures.citizenList;
         List<CitizenResponseDto> expected = CitizenFixtures.responseList;
         Page<Citizen> page = new PageImpl<>(citizens);
         when(citizenRepository.findAll(PageRequest.of(from, until))).thenReturn(page);
@@ -93,5 +95,34 @@ class CitizenServiceTest {
         CitizenNotFoundException ex = assertThrows(CitizenNotFoundException.class,
                 () -> citizenService.getCitizenById(id));
         assertEquals(String.format("Citizen with ID '%s' not found", id), ex.getMessage());
+    }
+
+    @Test
+    void shouldCreateCitizenSuccessfully() {
+        CitizenRequestDto requestDto = CitizenFixtures.request2;
+        Citizen citizen = CitizenFixtures.citizen2;
+        CitizenResponseDto expected = CitizenFixtures.response2;
+        when(citizenRepository.existsByEmail(citizen.getEmail())).thenReturn(false);
+        when(citizenMapper.toEntity(requestDto)).thenReturn(citizen);
+        when(citizenRepository.save(citizen)).thenReturn(citizen);
+        when(citizenMapper.toResponseDto(citizen)).thenReturn(expected);
+
+        CitizenResponseDto actual = citizenService.createCitizen(requestDto);
+        assertNotNull(actual);
+        assertEquals(expected, actual);
+        verify(citizenRepository, times(1)).existsByEmail(citizen.getEmail());
+        verify(citizenMapper, times(1)).toEntity(requestDto);
+        verify(citizenMapper, times(1)).toResponseDto(citizen);
+        verify(citizenRepository, times(1)).save(citizen);
+    }
+
+    @Test
+    void shouldCreateCitizenThrowExceptionWhenEmailAlreadyExists() {
+        CitizenRequestDto citizenRequestDto = CitizenFixtures.request2;
+        when(citizenRepository.existsByEmail(citizenRequestDto.email())).thenReturn(true);
+
+        CitizenAlreadyExistsByEmailException ex = assertThrows(CitizenAlreadyExistsByEmailException.class,
+                () -> citizenService.createCitizen(citizenRequestDto));
+        assertEquals(String.format("Citizen with email '%s' already exists", citizenRequestDto.email()), ex.getMessage());
     }
 }

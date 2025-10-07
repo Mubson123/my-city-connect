@@ -1,4 +1,4 @@
-package com.mc.citizen.dto;
+package com.mc.citizen.model.dto;
 
 import com.mc.citizen.model.*;
 import com.mc.citizen.model.util.*;
