@@ -1,7 +1,7 @@
 package com.mc.citizen.fixtures;
 
-import com.mc.citizen.dto.CitizenRequestDto;
-import com.mc.citizen.dto.CitizenResponseDto;
+import com.mc.citizen.model.dto.CitizenRequestDto;
+import com.mc.citizen.model.dto.CitizenResponseDto;
 import com.mc.citizen.model.*;
 import com.mc.citizen.model.util.*;
 
@@ -12,8 +12,11 @@ import java.util.Set;
 import java.util.UUID;
 
 public class CitizenFixtures {
+
+    public static UUID citizenId1 = UUID.randomUUID();
+    public static UUID citizenId2 = UUID.randomUUID();
     public static Citizen citizen1 = Citizen.builder()
-            .id(UUID.fromString("11111111-1111-1111-1111-111111111111"))
+            .id(citizenId1)
             .createdAt(LocalDateTime.of(2024, 1, 10, 14, 30))
             .updatedAt(LocalDateTime.of(2024, 5, 12, 9, 45))
             .titles(Set.of(Title.Dr))
@@ -29,7 +32,7 @@ public class CitizenFixtures {
             .build();
 
     public static Citizen citizen2 = Citizen.builder()
-            .id(UUID.fromString("22222222-2222-2222-2222-222222222222"))
+            .id(citizenId2)
             .createdAt(LocalDateTime.of(2024, 2, 5, 10, 20))
             .updatedAt(LocalDateTime.of(2024, 6, 7, 16, 30))
             .titles(Set.of(Title.Prof, Title.Ing))
@@ -81,7 +84,7 @@ public class CitizenFixtures {
     public static List<CitizenRequestDto> requestList = List.of(request1, request2);
 
     public static CitizenResponseDto response1 = new CitizenResponseDto(
-            UUID.fromString("11111111-1111-1111-1111-111111111111"),
+            citizenId1,
             LocalDateTime.of(2024, 1, 10, 14, 30),
             LocalDateTime.of(2024, 5, 12, 9, 45),
             Set.of(Title.Dr),
@@ -97,7 +100,7 @@ public class CitizenFixtures {
     );
 
     public static CitizenResponseDto response2 = new CitizenResponseDto(
-            UUID.fromString("22222222-2222-2222-2222-222222222222"),
+            citizenId2,
             LocalDateTime.of(2024, 2, 5, 10, 20),
             LocalDateTime.of(2024, 6, 7, 16, 30),
             Set.of(Title.Prof, Title.Ing),
