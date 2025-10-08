@@ -142,7 +142,7 @@ class CitizenServiceTest {
         CitizenResponseDto actual = citizenService.updateCitizen(citizenId, citizenRequestDto);
         assertNotNull(actual);
         assertEquals(expected.email(), actual.email());
-        assertEquals(expected.phoneNumbers(), actual.phoneNumbers());
+        assertEquals(expected.phones(), actual.phones());
         assertEquals(expected, actual);
     }
 

@@ -14,7 +14,7 @@ import lombok.*;
 public class Address {
     @NonNull
     @Enumerated(EnumType.STRING)
-    private AddressTyp type;
+    private AddressKind type;
     @NonNull
     private String street;
     @NonNull

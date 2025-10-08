@@ -11,7 +11,7 @@ import lombok.*;
 @Embeddable
 @AllArgsConstructor
 @NoArgsConstructor
-public class PhoneNumber {
+public class Phone {
     private String number;
     @Enumerated(EnumType.STRING)
     private PhoneType phoneType;
