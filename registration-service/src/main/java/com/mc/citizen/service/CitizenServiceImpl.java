@@ -17,6 +17,9 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class CitizenServiceImpl implements CitizenService {
+    private static final String NOT_FOUND = "Citizen with ID '%s' not found";
+    public static final String EMAIL_ALREADY_EXISTS = "Citizen with email '%s' already exists";
+
     private final CitizenRepository citizenRepository;
     private final CitizenMapper citizenMapper;
 
@@ -34,9 +37,9 @@ public class CitizenServiceImpl implements CitizenService {
     @Override
     public CitizenResponseDto getCitizenById(UUID citizenId) {
         Citizen citizen = citizenRepository
-                        .findById(citizenId)
-                        .orElseThrow(() -> new CitizenNotFoundException(
-                                                String.format("Citizen with ID '%s' not found", citizenId)));
+                .findById(citizenId)
+                .orElseThrow(() -> new CitizenNotFoundException(
+                        String.format(NOT_FOUND, citizenId)));
         return citizenMapper.toResponseDto(citizen);
     }
 
@@ -44,7 +47,7 @@ public class CitizenServiceImpl implements CitizenService {
     public CitizenResponseDto createCitizen(CitizenRequestDto citizenRequestDto) {
         boolean citizenExistsById = citizenRepository.existsByEmail(citizenRequestDto.email());
         if (citizenExistsById) {
-            throw new CitizenAlreadyExistsByEmailException("Citizen with email '" + citizenRequestDto.email() + "' already exists");
+            throw new CitizenAlreadyExistsByEmailException(String.format(EMAIL_ALREADY_EXISTS, citizenRequestDto.email()));
         }
         Citizen citizen = citizenMapper.toEntity(citizenRequestDto);
         citizen = citizenRepository.save(citizen);
@@ -54,9 +57,9 @@ public class CitizenServiceImpl implements CitizenService {
     @Override
     public CitizenResponseDto updateCitizen(UUID citizenId, CitizenRequestDto citizenRequestDto) {
         Citizen citizen = citizenRepository
-                        .findById(citizenId)
-                        .orElseThrow(() -> new CitizenNotFoundException(
-                                                String.format("Citizen with ID '%s' not found", citizenId)));
+                .findById(citizenId)
+                .orElseThrow(() -> new CitizenNotFoundException(
+                        String.format(NOT_FOUND, citizenId)));
         Citizen updatedCitizen = citizenMapper.toEntity(citizenRequestDto);
         updatedCitizen.setId(citizenId);
         updatedCitizen.setCreatedAt(citizen.getCreatedAt());
@@ -69,7 +72,7 @@ public class CitizenServiceImpl implements CitizenService {
         Citizen citizen = citizenRepository
                 .findById(citizenId)
                 .orElseThrow(() -> new CitizenNotFoundException(
-                        String.format("Citizen with ID '%s' not found", citizenId)));
+                        String.format(NOT_FOUND, citizenId)));
         citizenRepository.delete(citizen);
     }
 }

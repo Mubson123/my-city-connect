@@ -1,5 +1,5 @@
 package com.mc.citizen.model.util;
 
 public enum IDType {
-    Card, Passport, Other
+    CARD, PASSPORT, OTHER
 }

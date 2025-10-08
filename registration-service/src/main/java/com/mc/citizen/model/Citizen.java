@@ -62,8 +62,8 @@ public class Citizen {
 
     @ElementCollection
     @Builder.Default
-    @CollectionTable(name = "Citizen_phoneNumbers", joinColumns = @JoinColumn(name = "citizen_id"))
-    private Set<PhoneNumber> phoneNumbers = new LinkedHashSet<>();
+    @CollectionTable(name = "Citizen_phones", joinColumns = @JoinColumn(name = "citizen_id"))
+    private Set<Phone> phones = new LinkedHashSet<>();
 
     @NonNull
     @Enumerated(EnumType.STRING)

@@ -1,0 +1,389 @@
+openapi: 3.0.4
+info:
+  title: Registration Service
+  description: This service allows a citizen to register in his municipality.
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:9091/api/v1'
+
+security:
+  - bearerAuth: []
+
+tags:
+  - name: Registration Controller
+    description: Citizen Service REST Endpoints
+
+paths:
+  /citizens:
+    get:
+      tags:
+        - Registration Controller
+      summary: Returns A List Of All The Citizens
+      description: Returns A List Of All The Citizen
+      operationId: getAllCitizens
+      parameters:
+        - name: limit
+          in: query
+          description: Limits the number of items ono a page
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successfully Operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CitizenResponse'
+        401:
+          description: Access token is missing or invalid
+        404:
+          description: Citizen Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Internal Server Error
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    post:
+      tags:
+        - Registration Controller
+      summary: Registry a new Citizen
+      description: Registry a new Citizen
+      operationId: createCitizen
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CitizenRequest'
+        required: true
+      responses:
+        201:
+          description: Citizen successfully registry
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CitizenResponse'
+        401:
+          description: Access token is missing or invalid
+        500:
+          description: Internal Server Error
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
+  /citizens/{citizenId}:
+    get:
+      tags:
+        - Registration Controller
+      summary: Return a found Citizen by ID
+      description: Return a found Citizen by ID
+      operationId: getCitizenById
+      parameters:
+        - name: citizenId
+          in: path
+          description: ID of a registered Citizen
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Successfully Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CitizenResponse'
+        401:
+          description: Access token is missing or invalid
+        404:
+          description: Citizen Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Internal Server Error
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
+    put:
+      tags:
+        - Registration Controller
+      summary: Update a given Citizen
+      description: Update a given Citizen
+      operationId: updateCitizen
+      parameters:
+        - name: citizenId
+          in: path
+          description: ID of a registered Citizen
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Update the Citizen
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CitizenRequest'
+        required: true
+      responses:
+        202:
+          description: Successfully Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CitizenResponse'
+        401:
+          description: Access token is missing or invalid
+        404:
+          description: Citizen Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Internal Server Error
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    delete:
+      tags:
+        - Registration Controller
+      summary: Delete A Citizen By ID
+      description: Delete a Citizen By ID
+      operationId: deleteCitizen
+      parameters:
+        - name: citizenId
+          in: path
+          description: ID of a registered Citizen
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        204:
+          description: Successfully Operation
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    CitizenRequest:
+      required:
+        - titles
+        - gender
+        - firstname
+        - lastname
+        - birthDate
+        - birthPlace
+        - email
+        - phones
+        - maritalStatus
+        - addresses
+      type: object
+      properties:
+        titles:
+          anyOf:
+            - $ref: '#/components/schemas/Title'
+        gender:
+          $ref: '#/components/schemas/Gender'
+        firstname:
+          type: string
+          example: John
+        lastname:
+          type: string
+          example: Bauer
+        birthDate:
+          type: string
+          format: date
+          example: 1945-01-01
+        birthPlace:
+          type: string
+          example: Nuremberg
+        email:
+          type: string
+          example: example@email.com
+        phones:
+          anyOf:
+            - $ref: '#/components/schemas/Phone'
+        maritalStatus:
+          $ref: '#/components/schemas/MaritalStatus'
+        addresses:
+          anyOf:
+            - $ref: '#/components/schemas/Address'
+
+    CitizenResponse:
+      type: object
+      required:
+        - id
+        - createdAt
+        - updatedAt
+        - titles
+        - gender
+        - firstname
+        - lastname
+        - birthDate
+        - birthPlace
+        - email
+        - phones
+        - maritalStatus
+        - addresses
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 188b1190-e106-4687-8b11-90e106768749
+        createdAt:
+          type: string
+          format: date-time
+          example: 2024-06-17T25:10:56.946Z
+        updatedAt:
+          type: string
+          format: date-time
+          example: 2025-10-08T11:06:49.359Z
+        titles:
+          anyOf:
+            - $ref: '#/components/schemas/Title'
+        gender:
+          $ref: '#/components/schemas/Gender'
+        firstname:
+          type: string
+          example: John
+        lastname:
+          type: string
+          example: Bauer
+        birthDate:
+          type: string
+          format: date
+          example: 1945-01-01
+        birthPlace:
+          type: string
+          example: Nuremberg
+        email:
+          type: string
+          example: example@email.com
+        phones:
+          anyOf:
+            - $ref: '#/components/schemas/Phone'
+        maritalStatus:
+          $ref: '#/components/schemas/MaritalStatus'
+        addresses:
+          anyOf:
+            - $ref: '#/components/schemas/Address'
+
+    Phone:
+      type: object
+      required:
+        - number
+        - PhoneType
+      properties:
+        number:
+          type: string
+          example: 04912345678
+        PhoneType:
+          $ref: '#/components/schemas/PhoneType'
+
+    Address:
+      type: object
+      required:
+        - addressKind
+        - street
+        - zip
+        - city
+      properties:
+        addressKind:
+          $ref: '#/components/schemas/AddressTyp'
+        street:
+          type: string
+          example: some street 32
+        zip:
+          type: string
+          example: -17500
+        city:
+          type: string
+          example: paris
+
+    Title:
+      type: string
+      description: Citizen Title
+      example: ING
+      enum:
+        - PROF
+        - DR
+        - ING
+        - HAB
+        - PHD
+
+    PhoneType:
+      type: string
+      description: Type of phoneNumber
+      example: MOBILE
+      enum:
+        - MOBILE
+        - PRIVATE
+        - WORK
+
+    MaritalStatus:
+      type: string
+      description: Citizen marital status
+      example: SINGLE
+      enum:
+        - SINGLE
+        - MARRIED
+        - DIVORCED
+
+    Gender:
+      type: string
+      description: Citizen Gender
+      example: MALE
+      enum:
+        - MALE
+        - FEMALE
+        - UNKNOWN
+
+    AddressTyp:
+      type: string
+      description: Citizen Location Kind
+      example: MAIN, SECONDARY
+      enum:
+        - MAIN
+        - SECONDARY
+
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+

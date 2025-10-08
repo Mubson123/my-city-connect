@@ -18,6 +18,6 @@ import java.util.UUID;
 public record CitizenResponseDto(UUID id, LocalDateTime createdAt, LocalDateTime updatedAt, Set<Title> titles,
                                  Gender gender, String firstName, String lastName, LocalDate birthDate,
                                  String birthPlace,
-                                 @Email String email, Set<PhoneNumber> phoneNumbers, MaritalStatus maritalStatus,
+                                 @Email String email, Set<Phone> phones, MaritalStatus maritalStatus,
                                  Set<Address> addresses) implements Serializable {
 }

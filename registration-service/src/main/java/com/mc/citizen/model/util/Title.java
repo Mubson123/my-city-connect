@@ -1,5 +1,5 @@
 package com.mc.citizen.model.util;
 
 public enum Title {
-    Prof, Dr, Ing, Hab
+    PROF, DR, ING, HAB, PHD
 }

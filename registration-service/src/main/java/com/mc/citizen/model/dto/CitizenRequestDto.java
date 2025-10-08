@@ -19,7 +19,7 @@ public record CitizenRequestDto(Set<Title> titles, @NotNull Gender gender,
                                 @NotNull(message = "lastname required") String lastName,
                                 @NotNull(message = "birthdate required") LocalDate birthDate,
                                 @NotNull(message = "birthplace required") String birthPlace,
-                                @Email(message = "e-mail required") String email, Set<PhoneNumber> phoneNumbers,
+                                @Email(message = "e-mail required") String email, Set<Phone> phones,
                                 @NotNull(message = "marital status required") MaritalStatus maritalStatus,
                                 @NotNull(message = "address required") Set<Address> addresses) implements Serializable {
 }

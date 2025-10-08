@@ -19,34 +19,34 @@ public class CitizenFixtures {
             .id(citizenId1)
             .createdAt(LocalDateTime.of(2024, 1, 10, 14, 30))
             .updatedAt(LocalDateTime.of(2024, 5, 12, 9, 45))
-            .titles(Set.of(Title.Dr))
-            .gender(Gender.Male)
+            .titles(Set.of(Title.DR))
+            .gender(Gender.MALE)
             .firstName("Jean")
             .lastName("Dupont")
             .birthDate(LocalDate.of(1985, 3, 14))
             .birthPlace("Paris")
             .email("jean.dupont@example.com")
-            .phoneNumbers(Set.of(new PhoneNumber("0176123456", PhoneType.Mobile)))
+            .phones(Set.of(new Phone("0176123456", PhoneType.MOBILE)))
             .maritalStatus(MaritalStatus.MARRIED)
-            .addresses(Set.of(new Address(AddressTyp.Main, "12 Rue Victor Hugo", "75001", "Paris")))
+            .addresses(Set.of(new Address(AddressKind.MAIN, "12 Rue Victor Hugo", "75001", "Paris")))
             .build();
 
     public static Citizen citizen2 = Citizen.builder()
             .id(citizenId2)
             .createdAt(LocalDateTime.of(2024, 2, 5, 10, 20))
             .updatedAt(LocalDateTime.of(2024, 6, 7, 16, 30))
-            .titles(Set.of(Title.Prof, Title.Ing))
-            .gender(Gender.Female)
+            .titles(Set.of(Title.PROF, Title.ING))
+            .gender(Gender.FEMALE)
             .firstName("Maria")
             .lastName("Schneider")
             .birthDate(LocalDate.of(1990, 8, 25))
             .birthPlace("Nürnberg")
             .email("maria.schneider@example.de")
-            .phoneNumbers(Set.of(new PhoneNumber("0911234567", PhoneType.Work)))
+            .phones(Set.of(new Phone("0911234567", PhoneType.WORK)))
             .maritalStatus(MaritalStatus.SINGLE)
             .addresses(Set.of(
-                    new Address(AddressTyp.Main, "Königstrasse 22", "90402", "Nürnberg"),
-                    new Address(AddressTyp.Secondary, "Blumenweg 5", "91301", "Forchheim")
+                    new Address(AddressKind.MAIN, "Königstrasse 22", "90402", "Nürnberg"),
+                    new Address(AddressKind.SECONDARY, "Blumenweg 5", "91301", "Forchheim")
             ))
             .build();
 
@@ -56,94 +56,94 @@ public class CitizenFixtures {
             .id(citizenId1)
             .createdAt(LocalDateTime.of(2024, 1, 10, 14, 30))
             .updatedAt(LocalDateTime.now())
-            .titles(Set.of(Title.Dr))
-            .gender(Gender.Male)
+            .titles(Set.of(Title.DR))
+            .gender(Gender.MALE)
             .firstName("Jean")
             .lastName("Dupont")
             .birthDate(LocalDate.of(1985, 3, 14))
             .birthPlace("Paris")
             .email("dupont123jean@gmail.com")
-            .phoneNumbers(Set.of(new PhoneNumber("0176586224", PhoneType.Mobile)))
+            .phones(Set.of(new Phone("0176586224", PhoneType.MOBILE)))
             .maritalStatus(MaritalStatus.MARRIED)
-            .addresses(Set.of(new Address(AddressTyp.Main, "12 Rue Victor Hugo", "75001", "Paris")))
+            .addresses(Set.of(new Address(AddressKind.MAIN, "12 Rue Victor Hugo", "75001", "Paris")))
             .build();
 
     public static CitizenRequestDto request1 = new CitizenRequestDto(
-            Set.of(Title.Dr),
-            Gender.Male,
+            Set.of(Title.DR),
+            Gender.MALE,
             "Jean",
             "Dupont",
             LocalDate.of(1985, 3, 14),
             "Paris",
             "jean.dupont@example.com",
-            Set.of(new PhoneNumber("0176123456", PhoneType.Mobile)),
+            Set.of(new Phone("0176123456", PhoneType.MOBILE)),
             MaritalStatus.MARRIED,
-            Set.of(new Address(AddressTyp.Main, "12 Rue Victor Hugo", "75001", "Paris"))
+            Set.of(new Address(AddressKind.MAIN, "12 Rue Victor Hugo", "75001", "Paris"))
     );
 
     public static CitizenRequestDto request2 = new CitizenRequestDto(
-            Set.of(Title.Prof, Title.Ing),
-            Gender.Female,
+            Set.of(Title.PROF, Title.ING),
+            Gender.FEMALE,
             "Maria",
             "Schneider",
             LocalDate.of(1990, 8, 25),
             "Nürnberg",
             "maria.schneider@example.de",
-            Set.of(new PhoneNumber("0911234567", PhoneType.Work)),
+            Set.of(new Phone("0911234567", PhoneType.WORK)),
             MaritalStatus.SINGLE,
             Set.of(
-                    new Address(AddressTyp.Main, "Königstrasse 22", "90402", "Nürnberg"),
-                    new Address(AddressTyp.Secondary, "Blumenweg 5", "91301", "Forchheim")
+                    new Address(AddressKind.MAIN, "Königstrasse 22", "90402", "Nürnberg"),
+                    new Address(AddressKind.SECONDARY, "Blumenweg 5", "91301", "Forchheim")
             )
     );
 
     public static List<CitizenRequestDto> requestList = List.of(request1, request2);
 
     public static CitizenRequestDto updatedRequest1 = new CitizenRequestDto(
-            Set.of(Title.Dr),
-            Gender.Male,
+            Set.of(Title.DR),
+            Gender.MALE,
             "Jean",
             "Dupont",
             LocalDate.of(1985, 3, 14),
             "Paris",
             "dupont123jean@gmail.com",
-            Set.of(new PhoneNumber("0176586224", PhoneType.Mobile)),
+            Set.of(new Phone("0176586224", PhoneType.MOBILE)),
             MaritalStatus.MARRIED,
-            Set.of(new Address(AddressTyp.Main, "12 Rue Victor Hugo", "75001", "Paris"))
+            Set.of(new Address(AddressKind.MAIN, "12 Rue Victor Hugo", "75001", "Paris"))
     );
 
     public static CitizenResponseDto response1 = new CitizenResponseDto(
             citizenId1,
             LocalDateTime.of(2024, 1, 10, 14, 30),
             LocalDateTime.of(2024, 5, 12, 9, 45),
-            Set.of(Title.Dr),
-            Gender.Male,
+            Set.of(Title.DR),
+            Gender.MALE,
             "Jean",
             "Dupont",
             LocalDate.of(1985, 3, 14),
             "Paris",
             "jean.dupont@example.com",
-            Set.of(new PhoneNumber("0176123456", PhoneType.Mobile)),
+            Set.of(new Phone("0176123456", PhoneType.MOBILE)),
             MaritalStatus.MARRIED,
-            Set.of(new Address(AddressTyp.Main, "12 Rue Victor Hugo", "75001", "Paris"))
+            Set.of(new Address(AddressKind.MAIN, "12 Rue Victor Hugo", "75001", "Paris"))
     );
 
     public static CitizenResponseDto response2 = new CitizenResponseDto(
             citizenId2,
             LocalDateTime.of(2024, 2, 5, 10, 20),
             LocalDateTime.of(2024, 6, 7, 16, 30),
-            Set.of(Title.Prof, Title.Ing),
-            Gender.Female,
+            Set.of(Title.PROF, Title.ING),
+            Gender.FEMALE,
             "Maria",
             "Schneider",
             LocalDate.of(1990, 8, 25),
             "Nürnberg",
             "maria.schneider@example.de",
-            Set.of(new PhoneNumber("0911234567", PhoneType.Work)),
+            Set.of(new Phone("0911234567", PhoneType.WORK)),
             MaritalStatus.SINGLE,
             Set.of(
-                    new Address(AddressTyp.Main, "Königstrasse 22", "90402", "Nürnberg"),
-                    new Address(AddressTyp.Secondary, "Blumenweg 5", "91301", "Forchheim")
+                    new Address(AddressKind.MAIN, "Königstrasse 22", "90402", "Nürnberg"),
+                    new Address(AddressKind.SECONDARY, "Blumenweg 5", "91301", "Forchheim")
             )
     );
 
@@ -153,15 +153,15 @@ public class CitizenFixtures {
             citizenId1,
             LocalDateTime.of(2024, 1, 10, 14, 30),
             LocalDateTime.of(2024, 5, 12, 9, 45),
-            Set.of(Title.Dr),
-            Gender.Male,
+            Set.of(Title.DR),
+            Gender.MALE,
             "Jean",
             "Dupont",
             LocalDate.of(1985, 3, 14),
             "Paris",
             "dupont123jean@gmail.com",
-            Set.of(new PhoneNumber("0176586224", PhoneType.Mobile)),
+            Set.of(new Phone("0176586224", PhoneType.MOBILE)),
             MaritalStatus.MARRIED,
-            Set.of(new Address(AddressTyp.Main, "12 Rue Victor Hugo", "75001", "Paris"))
+            Set.of(new Address(AddressKind.MAIN, "12 Rue Victor Hugo", "75001", "Paris"))
     );
 }
