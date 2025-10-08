@@ -10,4 +10,6 @@ public interface CitizenService {
     List<CitizenResponseDto> getCitizens(int from, int until);
     CitizenResponseDto getCitizenById(UUID citizenId);
     CitizenResponseDto createCitizen(CitizenRequestDto citizenRequestDto);
+    CitizenResponseDto updateCitizen(UUID citizenId, CitizenRequestDto citizenRequestDto);
+    void deleteCitizen(UUID citizenId);
 }

@@ -6,7 +6,6 @@ import com.mc.citizen.model.Citizen;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
@@ -18,5 +17,6 @@ public interface CitizenMapper {
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     Citizen toEntity(CitizenRequestDto citizenRequestDto);
+
     List<CitizenResponseDto> toResponseDtos(List<Citizen> citizens);
 }

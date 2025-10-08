@@ -52,6 +52,22 @@ public class CitizenFixtures {
 
     public static List<Citizen> citizenList = List.of(citizen1, citizen2);
 
+    public static Citizen updatedCitizen1 = Citizen.builder()
+            .id(citizenId1)
+            .createdAt(LocalDateTime.of(2024, 1, 10, 14, 30))
+            .updatedAt(LocalDateTime.now())
+            .titles(Set.of(Title.Dr))
+            .gender(Gender.Male)
+            .firstName("Jean")
+            .lastName("Dupont")
+            .birthDate(LocalDate.of(1985, 3, 14))
+            .birthPlace("Paris")
+            .email("dupont123jean@gmail.com")
+            .phoneNumbers(Set.of(new PhoneNumber("0176586224", PhoneType.Mobile)))
+            .maritalStatus(MaritalStatus.MARRIED)
+            .addresses(Set.of(new Address(AddressTyp.Main, "12 Rue Victor Hugo", "75001", "Paris")))
+            .build();
+
     public static CitizenRequestDto request1 = new CitizenRequestDto(
             Set.of(Title.Dr),
             Gender.Male,
@@ -82,6 +98,19 @@ public class CitizenFixtures {
     );
 
     public static List<CitizenRequestDto> requestList = List.of(request1, request2);
+
+    public static CitizenRequestDto updatedRequest1 = new CitizenRequestDto(
+            Set.of(Title.Dr),
+            Gender.Male,
+            "Jean",
+            "Dupont",
+            LocalDate.of(1985, 3, 14),
+            "Paris",
+            "dupont123jean@gmail.com",
+            Set.of(new PhoneNumber("0176586224", PhoneType.Mobile)),
+            MaritalStatus.MARRIED,
+            Set.of(new Address(AddressTyp.Main, "12 Rue Victor Hugo", "75001", "Paris"))
+    );
 
     public static CitizenResponseDto response1 = new CitizenResponseDto(
             citizenId1,
@@ -119,4 +148,20 @@ public class CitizenFixtures {
     );
 
     public static List<CitizenResponseDto> responseList = List.of(response1, response2);
+
+    public static CitizenResponseDto updateResponse1 = new CitizenResponseDto(
+            citizenId1,
+            LocalDateTime.of(2024, 1, 10, 14, 30),
+            LocalDateTime.of(2024, 5, 12, 9, 45),
+            Set.of(Title.Dr),
+            Gender.Male,
+            "Jean",
+            "Dupont",
+            LocalDate.of(1985, 3, 14),
+            "Paris",
+            "dupont123jean@gmail.com",
+            Set.of(new PhoneNumber("0176586224", PhoneType.Mobile)),
+            MaritalStatus.MARRIED,
+            Set.of(new Address(AddressTyp.Main, "12 Rue Victor Hugo", "75001", "Paris"))
+    );
 }

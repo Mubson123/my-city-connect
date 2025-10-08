@@ -33,12 +33,9 @@ public class CitizenServiceImpl implements CitizenService {
 
     @Override
     public CitizenResponseDto getCitizenById(UUID citizenId) {
-        Citizen citizen =
-                citizenRepository
+        Citizen citizen = citizenRepository
                         .findById(citizenId)
-                        .orElseThrow(
-                                () ->
-                                        new CitizenNotFoundException(
+                        .orElseThrow(() -> new CitizenNotFoundException(
                                                 String.format("Citizen with ID '%s' not found", citizenId)));
         return citizenMapper.toResponseDto(citizen);
     }
@@ -52,5 +49,27 @@ public class CitizenServiceImpl implements CitizenService {
         Citizen citizen = citizenMapper.toEntity(citizenRequestDto);
         citizen = citizenRepository.save(citizen);
         return citizenMapper.toResponseDto(citizen);
+    }
+
+    @Override
+    public CitizenResponseDto updateCitizen(UUID citizenId, CitizenRequestDto citizenRequestDto) {
+        Citizen citizen = citizenRepository
+                        .findById(citizenId)
+                        .orElseThrow(() -> new CitizenNotFoundException(
+                                                String.format("Citizen with ID '%s' not found", citizenId)));
+        Citizen updatedCitizen = citizenMapper.toEntity(citizenRequestDto);
+        updatedCitizen.setId(citizenId);
+        updatedCitizen.setCreatedAt(citizen.getCreatedAt());
+        updatedCitizen = citizenRepository.save(updatedCitizen);
+        return citizenMapper.toResponseDto(updatedCitizen);
+    }
+
+    @Override
+    public void deleteCitizen(UUID citizenId) {
+        Citizen citizen = citizenRepository
+                .findById(citizenId)
+                .orElseThrow(() -> new CitizenNotFoundException(
+                        String.format("Citizen with ID '%s' not found", citizenId)));
+        citizenRepository.delete(citizen);
     }
 }
