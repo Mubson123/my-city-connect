@@ -125,4 +125,35 @@ class CitizenServiceTest {
                 () -> citizenService.createCitizen(citizenRequestDto));
         assertEquals(String.format("Citizen with email '%s' already exists", citizenRequestDto.email()), ex.getMessage());
     }
+
+    @Test
+    void shouldUpdateCitizenSuccessfully() {
+        UUID citizenId = CitizenFixtures.citizenId1;
+        Citizen citizen = CitizenFixtures.citizen1;
+        Citizen updatedCitizen = CitizenFixtures.updatedCitizen1;
+        CitizenRequestDto citizenRequestDto = CitizenFixtures.updatedRequest1;
+        CitizenResponseDto expected = CitizenFixtures.response1;
+
+        when(citizenRepository.findById(citizenId)).thenReturn(Optional.of(citizen));
+        when(citizenMapper.toEntity(citizenRequestDto)).thenReturn(updatedCitizen);
+        when(citizenRepository.save(updatedCitizen)).thenReturn(updatedCitizen);
+        when(citizenMapper.toResponseDto(updatedCitizen)).thenReturn(expected);
+
+        CitizenResponseDto actual = citizenService.updateCitizen(citizenId, citizenRequestDto);
+        assertNotNull(actual);
+        assertEquals(expected.email(), actual.email());
+        assertEquals(expected.phoneNumbers(), actual.phoneNumbers());
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldDeleteCitizenSuccessfully() {
+        UUID citizenId = CitizenFixtures.citizenId2;
+        Citizen citizen = CitizenFixtures.citizen2;
+        when(citizenRepository.findById(citizenId)).thenReturn(Optional.of(citizen));
+        doNothing().when(citizenRepository).delete(citizen);
+
+        citizenService.deleteCitizen(citizenId);
+        verify(citizenRepository, times(1)).delete(citizen);
+    }
 }
