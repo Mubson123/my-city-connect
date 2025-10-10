@@ -1,4 +1,4 @@
-openapi: 3.0.4
+openapi: '3.0.4'
 info:
   title: Registration Service
   description: This service allows a citizen to register in his municipality.
@@ -199,8 +199,8 @@ components:
       required:
         - titles
         - gender
-        - firstname
-        - lastname
+        - firstName
+        - lastName
         - birthDate
         - birthPlace
         - email
@@ -210,14 +210,15 @@ components:
       type: object
       properties:
         titles:
-          anyOf:
-            - $ref: '#/components/schemas/Title'
+          type: array
+          items:
+            $ref: '#/components/schemas/Title'
         gender:
           $ref: '#/components/schemas/Gender'
-        firstname:
+        firstName:
           type: string
           example: John
-        lastname:
+        lastName:
           type: string
           example: Bauer
         birthDate:
@@ -229,15 +230,18 @@ components:
           example: Nuremberg
         email:
           type: string
+          format: email
           example: example@email.com
         phones:
-          anyOf:
-            - $ref: '#/components/schemas/Phone'
+          type: array
+          items:
+            $ref: '#/components/schemas/Phone'
         maritalStatus:
           $ref: '#/components/schemas/MaritalStatus'
         addresses:
-          anyOf:
-            - $ref: '#/components/schemas/Address'
+          type: array
+          items:
+            $ref: '#/components/schemas/Address'
 
     CitizenResponse:
       type: object
@@ -247,8 +251,8 @@ components:
         - updatedAt
         - titles
         - gender
-        - firstname
-        - lastname
+        - firstName
+        - lastName
         - birthDate
         - birthPlace
         - email
@@ -269,14 +273,15 @@ components:
           format: date-time
           example: 2025-10-08T11:06:49.359Z
         titles:
-          anyOf:
-            - $ref: '#/components/schemas/Title'
+          type: array
+          items:
+            $ref: '#/components/schemas/Title'
         gender:
           $ref: '#/components/schemas/Gender'
-        firstname:
+        firstName:
           type: string
           example: John
-        lastname:
+        lastName:
           type: string
           example: Bauer
         birthDate:
@@ -288,15 +293,18 @@ components:
           example: Nuremberg
         email:
           type: string
+          format: email
           example: example@email.com
         phones:
-          anyOf:
-            - $ref: '#/components/schemas/Phone'
+          type: array
+          items:
+            $ref: '#/components/schemas/Phone'
         maritalStatus:
           $ref: '#/components/schemas/MaritalStatus'
         addresses:
-          anyOf:
-            - $ref: '#/components/schemas/Address'
+          type: array
+          items:
+            $ref: '#/components/schemas/Address'
 
     Phone:
       type: object
@@ -313,12 +321,12 @@ components:
     Address:
       type: object
       required:
-        - addressKind
+        - type
         - street
         - zip
         - city
       properties:
-        addressKind:
+        type:
           $ref: '#/components/schemas/AddressTyp'
         street:
           type: string

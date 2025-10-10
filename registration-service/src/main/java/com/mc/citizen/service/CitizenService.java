@@ -1,15 +1,15 @@
 package com.mc.citizen.service;
 
-import com.mc.citizen.model.dto.CitizenRequestDto;
-import com.mc.citizen.model.dto.CitizenResponseDto;
+import com.mc.citizen.model.ApiCitizenRequest;
+import com.mc.citizen.model.ApiCitizenResponse;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface CitizenService {
-    List<CitizenResponseDto> getCitizens(int from, int until);
-    CitizenResponseDto getCitizenById(UUID citizenId);
-    CitizenResponseDto createCitizen(CitizenRequestDto citizenRequestDto);
-    CitizenResponseDto updateCitizen(UUID citizenId, CitizenRequestDto citizenRequestDto);
+    List<ApiCitizenResponse> getCitizens(int limit);
+    ApiCitizenResponse getCitizenById(UUID citizenId);
+    ApiCitizenResponse createCitizen(ApiCitizenRequest apiCitizenRequest);
+    ApiCitizenResponse updateCitizen(UUID citizenId, ApiCitizenRequest apiCitizenRequestDto);
     void deleteCitizen(UUID citizenId);
 }
