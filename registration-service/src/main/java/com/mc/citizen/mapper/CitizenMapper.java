@@ -1,22 +1,33 @@
 package com.mc.citizen.mapper;
 
-import com.mc.citizen.model.dto.CitizenRequestDto;
-import com.mc.citizen.model.dto.CitizenResponseDto;
+import com.mc.citizen.model.ApiCitizenRequest;
+import com.mc.citizen.model.ApiCitizenResponse;
 import com.mc.citizen.model.Citizen;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface CitizenMapper {
 
-    CitizenResponseDto toResponseDto(Citizen citizen);
+    default OffsetDateTime map(LocalDateTime localDateTime) {
+        if (localDateTime == null) return null;
+        return localDateTime.atZone(ZoneId.systemDefault()).toOffsetDateTime();
+    }
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    Citizen toEntity(CitizenRequestDto citizenRequestDto);
+    Citizen toCitizen(ApiCitizenRequest apiCitizenRequest);
 
-    List<CitizenResponseDto> toResponseDtos(List<Citizen> citizens);
+
+    @Mapping(target = "createdAt", source = "createdAt")
+    @Mapping(target = "updatedAt", source = "updatedAt")
+    ApiCitizenResponse toApiResponse(Citizen citizen);
+
+    List<ApiCitizenResponse> toApiResponses(List<Citizen> citizens);
 }

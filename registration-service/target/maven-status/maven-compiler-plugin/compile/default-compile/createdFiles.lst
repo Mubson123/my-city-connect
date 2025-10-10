@@ -15,12 +15,13 @@ com\mc\citizen\model\dto\CitizenRequestDto.class
 com\mc\citizen\model\ApiGender.class
 com\mc\citizen\model\Citizen$CitizenBuilder.class
 com\mc\citizen\model\dto\CitizenResponseDto.class
+com\mc\citizen\model\util\AddressTyp.class
 com\mc\citizen\model\util\Identification.class
 com\mc\citizen\model\ApiCitizenRequest.class
 com\mc\citizen\model\dto\CitizenResponseDto$CitizenResponseDtoBuilder.class
 com\mc\citizen\model\util\Address.class
 com\mc\citizen\model\util\MaritalStatus.class
-com\mc\citizen\model\util\AddressKind.class
+com\mc\citizen\mapper\CitizenMapperImpl$1.class
 com\mc\citizen\model\Citizen.class
 com\mc\citizen\model\util\IDType.class
 com\mc\citizen\model\ApiError.class

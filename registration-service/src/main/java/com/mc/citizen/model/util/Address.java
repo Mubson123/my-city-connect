@@ -3,6 +3,7 @@ package com.mc.citizen.model.util;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Getter
@@ -12,13 +13,13 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Address {
-    @NonNull
+    @NotBlank
     @Enumerated(EnumType.STRING)
-    private AddressKind type;
-    @NonNull
+    private AddressTyp type;
+    @NotBlank
     private String street;
-    @NonNull
+    @NotBlank
     private String zip;
-    @NonNull
+    @NotBlank
     private String city;
 }

@@ -3,6 +3,7 @@ package com.mc.citizen.model;
 import com.mc.citizen.model.util.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -40,20 +41,20 @@ public class Citizen {
     @CollectionTable(name = "Citizen_titles", joinColumns = @JoinColumn(name = "citizen_id"))
     private Set<Title> titles = new LinkedHashSet<>();
 
-    @NonNull
+    @NotBlank
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @NonNull
+    @NotBlank
     private String firstName;
 
-    @NonNull
+    @NotBlank
     private String lastName;
 
-    @NonNull
+    @NotBlank
     private LocalDate birthDate;
 
-    @NonNull
+    @NotBlank
     private String birthPlace;
 
     @Email
@@ -65,7 +66,7 @@ public class Citizen {
     @CollectionTable(name = "Citizen_phones", joinColumns = @JoinColumn(name = "citizen_id"))
     private Set<Phone> phones = new LinkedHashSet<>();
 
-    @NonNull
+    @NotBlank
     @Enumerated(EnumType.STRING)
     private MaritalStatus maritalStatus;
 

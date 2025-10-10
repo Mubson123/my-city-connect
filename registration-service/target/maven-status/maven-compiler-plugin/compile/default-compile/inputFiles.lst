@@ -5,7 +5,7 @@ D:\Workspace\Spring-Boot\my-city-connect\registration-service\src\main\java\com\
 D:\Workspace\Spring-Boot\my-city-connect\registration-service\src\main\java\com\mc\citizen\model\dto\CitizenRequestDto.java
 D:\Workspace\Spring-Boot\my-city-connect\registration-service\src\main\java\com\mc\citizen\model\dto\CitizenResponseDto.java
 D:\Workspace\Spring-Boot\my-city-connect\registration-service\src\main\java\com\mc\citizen\model\util\Address.java
-D:\Workspace\Spring-Boot\my-city-connect\registration-service\src\main\java\com\mc\citizen\model\util\AddressKind.java
+D:\Workspace\Spring-Boot\my-city-connect\registration-service\src\main\java\com\mc\citizen\model\util\AddressTyp.java
 D:\Workspace\Spring-Boot\my-city-connect\registration-service\src\main\java\com\mc\citizen\model\util\Gender.java
 D:\Workspace\Spring-Boot\my-city-connect\registration-service\src\main\java\com\mc\citizen\model\util\Identification.java
 D:\Workspace\Spring-Boot\my-city-connect\registration-service\src\main\java\com\mc\citizen\model\util\IDType.java

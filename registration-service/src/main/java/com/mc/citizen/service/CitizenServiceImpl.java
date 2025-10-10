@@ -1,14 +1,14 @@
 package com.mc.citizen.service;
 
 import com.mc.citizen.exception.CitizenAlreadyExistsByEmailException;
-import com.mc.citizen.model.dto.CitizenRequestDto;
-import com.mc.citizen.model.dto.CitizenResponseDto;
+import com.mc.citizen.model.ApiCitizenRequest;
+import com.mc.citizen.model.ApiCitizenResponse;
 import com.mc.citizen.exception.CitizenNotFoundException;
 import com.mc.citizen.mapper.CitizenMapper;
 import com.mc.citizen.model.Citizen;
 import com.mc.citizen.repository.CitizenRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,47 +24,46 @@ public class CitizenServiceImpl implements CitizenService {
     private final CitizenMapper citizenMapper;
 
     @Override
-    public List<CitizenResponseDto> getCitizens(int from, int until) {
-        if (from < 0) {
-            throw new IllegalArgumentException("Illegal Argument 'from' or 'until'");
-        } else if (from >= until) {
-            throw new IllegalArgumentException("'from' must be smaller than 'until'");
+    public List<ApiCitizenResponse> getCitizens(int limit) {
+        if (limit <= 0) {
+            throw new IllegalArgumentException("limit should be greater than 0");
         }
-        List<Citizen> citizens = citizenRepository.findAll(PageRequest.of(from, until)).getContent();
-        return citizenMapper.toResponseDtos(citizens);
+        List<Citizen> citizens = citizenRepository.findAll(Pageable.ofSize(limit)).getContent();
+        return citizenMapper.toApiResponses(citizens);
     }
 
     @Override
-    public CitizenResponseDto getCitizenById(UUID citizenId) {
+    public ApiCitizenResponse getCitizenById(UUID citizenId) {
         Citizen citizen = citizenRepository
                 .findById(citizenId)
                 .orElseThrow(() -> new CitizenNotFoundException(
                         String.format(NOT_FOUND, citizenId)));
-        return citizenMapper.toResponseDto(citizen);
+        return citizenMapper.toApiResponse(citizen);
     }
 
     @Override
-    public CitizenResponseDto createCitizen(CitizenRequestDto citizenRequestDto) {
-        boolean citizenExistsById = citizenRepository.existsByEmail(citizenRequestDto.email());
-        if (citizenExistsById) {
-            throw new CitizenAlreadyExistsByEmailException(String.format(EMAIL_ALREADY_EXISTS, citizenRequestDto.email()));
+    public ApiCitizenResponse createCitizen(ApiCitizenRequest citizenRequest) {
+        final String email = citizenRequest.getEmail();
+        boolean existsByEmail = citizenRepository.existsByEmail(email);
+        if (existsByEmail) {
+            throw new CitizenAlreadyExistsByEmailException(String.format(EMAIL_ALREADY_EXISTS, email));
         }
-        Citizen citizen = citizenMapper.toEntity(citizenRequestDto);
+        Citizen citizen = citizenMapper.toCitizen(citizenRequest);
         citizen = citizenRepository.save(citizen);
-        return citizenMapper.toResponseDto(citizen);
+        return citizenMapper.toApiResponse(citizen);
     }
 
     @Override
-    public CitizenResponseDto updateCitizen(UUID citizenId, CitizenRequestDto citizenRequestDto) {
+    public ApiCitizenResponse updateCitizen(UUID citizenId, ApiCitizenRequest citizenRequest) {
         Citizen citizen = citizenRepository
                 .findById(citizenId)
                 .orElseThrow(() -> new CitizenNotFoundException(
                         String.format(NOT_FOUND, citizenId)));
-        Citizen updatedCitizen = citizenMapper.toEntity(citizenRequestDto);
+        Citizen updatedCitizen = citizenMapper.toCitizen(citizenRequest);
         updatedCitizen.setId(citizenId);
         updatedCitizen.setCreatedAt(citizen.getCreatedAt());
         updatedCitizen = citizenRepository.save(updatedCitizen);
-        return citizenMapper.toResponseDto(updatedCitizen);
+        return citizenMapper.toApiResponse(updatedCitizen);
     }
 
     @Override
