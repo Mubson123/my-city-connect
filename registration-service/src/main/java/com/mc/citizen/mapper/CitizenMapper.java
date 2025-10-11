@@ -24,9 +24,6 @@ public interface CitizenMapper {
     @Mapping(target = "updatedAt", ignore = true)
     Citizen toCitizen(ApiCitizenRequest apiCitizenRequest);
 
-
-    @Mapping(target = "createdAt", source = "createdAt")
-    @Mapping(target = "updatedAt", source = "updatedAt")
     ApiCitizenResponse toApiResponse(Citizen citizen);
 
     List<ApiCitizenResponse> toApiResponses(List<Citizen> citizens);

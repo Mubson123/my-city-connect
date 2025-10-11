@@ -26,7 +26,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-10-10T21:21:42+0200",
+    date = "2025-10-11T21:03:09+0200",
     comments = "version: 1.6.3, compiler: javac, environment: Java 21.0.8 (Eclipse Adoptium)"
 )
 @Component
@@ -62,9 +62,9 @@ public class CitizenMapperImpl implements CitizenMapper {
 
         ApiCitizenResponse apiCitizenResponse = new ApiCitizenResponse();
 
+        apiCitizenResponse.setId( citizen.getId() );
         apiCitizenResponse.setCreatedAt( map( citizen.getCreatedAt() ) );
         apiCitizenResponse.setUpdatedAt( map( citizen.getUpdatedAt() ) );
-        apiCitizenResponse.setId( citizen.getId() );
         apiCitizenResponse.setTitles( titleSetToApiTitleList( citizen.getTitles() ) );
         apiCitizenResponse.setGender( genderToApiGender( citizen.getGender() ) );
         apiCitizenResponse.setFirstName( citizen.getFirstName() );
