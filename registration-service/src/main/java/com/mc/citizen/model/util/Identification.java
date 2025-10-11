@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Identification {
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     @Enumerated(EnumType.STRING)
     private IDType idType;
     @Column(unique = true)

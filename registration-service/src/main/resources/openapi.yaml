@@ -1,13 +1,13 @@
-openapi: '3.0.4'
+openapi: 3.1.1
 info:
   title: Registration Service
   description: This service allows a citizen to register in his municipality.
   version: 1.0.0
 servers:
-  - url: 'http://localhost:9091/api/v1'
+  - url: 'http://localhost:9091/api/v2/registration-service'
 
-security:
-  - bearerAuth: []
+#security:
+#  - bearerAuth: []
 
 tags:
   - name: Registration Controller
@@ -188,11 +188,11 @@ paths:
           description: Successfully Operation
 
 components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
+#  securitySchemes:
+#    bearerAuth:
+#      type: http
+#      scheme: bearer
+#      bearerFormat: JWT
 
   schemas:
     CitizenRequest:
@@ -333,7 +333,7 @@ components:
           example: some street 32
         zip:
           type: string
-          example: -17500
+          example: 17500
         city:
           type: string
           example: paris
@@ -379,7 +379,7 @@ components:
     AddressTyp:
       type: string
       description: Citizen Location Kind
-      example: MAIN, SECONDARY
+      example: MAIN
       enum:
         - MAIN
         - SECONDARY

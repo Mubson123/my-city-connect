@@ -4,6 +4,7 @@ import com.mc.citizen.model.util.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -38,10 +39,11 @@ public class Citizen {
 
     @ElementCollection
     @Builder.Default
+    @Enumerated(EnumType.STRING)
     @CollectionTable(name = "Citizen_titles", joinColumns = @JoinColumn(name = "citizen_id"))
     private Set<Title> titles = new LinkedHashSet<>();
 
-    @NotBlank
+    @NotNull
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
@@ -51,7 +53,7 @@ public class Citizen {
     @NotBlank
     private String lastName;
 
-    @NotBlank
+    @NotNull
     private LocalDate birthDate;
 
     @NotBlank
@@ -66,7 +68,7 @@ public class Citizen {
     @CollectionTable(name = "Citizen_phones", joinColumns = @JoinColumn(name = "citizen_id"))
     private Set<Phone> phones = new LinkedHashSet<>();
 
-    @NotBlank
+    @NotNull
     @Enumerated(EnumType.STRING)
     private MaritalStatus maritalStatus;
 
