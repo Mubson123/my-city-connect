@@ -1,2 +1,4 @@
 com\mc\citizen\fixtures\CitizenFixtures.class
 com\mc\citizen\service\CitizenServiceTest.class
+com\mc\citizen\constraint\ConstraintViolationTest.class
+com\mc\citizen\controller\CitizenControllerIT.class

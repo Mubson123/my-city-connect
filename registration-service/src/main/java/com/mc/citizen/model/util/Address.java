@@ -5,6 +5,8 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 @Getter
@@ -14,13 +16,13 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Address {
-    @NotNull
+    @NotNull(message = "address type required")
     @Enumerated(EnumType.STRING)
     private AddressTyp type;
-    @NotBlank
+    @Size(min = 3, message = "street must have at least 3 characters")
     private String street;
-    @NotBlank
+    @Pattern(regexp = "\\d{5}", message = "zip must be a 5-digit number")
     private String zip;
-    @NotBlank
+    @NotBlank(message = "city required")
     private String city;
 }

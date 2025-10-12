@@ -8,6 +8,8 @@ import com.mc.citizen.fixtures.CitizenFixtures;
 import com.mc.citizen.mapper.CitizenMapperImpl;
 import com.mc.citizen.model.Citizen;
 import com.mc.citizen.repository.CitizenRepository;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

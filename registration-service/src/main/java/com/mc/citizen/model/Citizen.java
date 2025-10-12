@@ -2,6 +2,7 @@ package com.mc.citizen.model;
 
 import com.mc.citizen.model.util.*;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -37,6 +38,7 @@ public class Citizen {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
+    @Valid
     @ElementCollection
     @Builder.Default
     @Enumerated(EnumType.STRING)
@@ -47,31 +49,34 @@ public class Citizen {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @NotBlank
+    @NotBlank(message = "firstname required")
     private String firstName;
 
-    @NotBlank
+    @NotBlank(message = "lastname required")
     private String lastName;
 
-    @NotNull
+    @NotNull(message = "birthdate required")
     private LocalDate birthDate;
 
-    @NotBlank
+    @NotBlank(message = "birthplace required")
     private String birthPlace;
 
-    @Email
+    @NotBlank(message = "email required")
+    @Email(message = "email not correct", regexp = "[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")
     @Column(unique = true, nullable = false)
     private String email;
 
+    @Valid
     @ElementCollection
     @Builder.Default
     @CollectionTable(name = "Citizen_phones", joinColumns = @JoinColumn(name = "citizen_id"))
     private Set<Phone> phones = new LinkedHashSet<>();
 
-    @NotNull
+    @NotNull(message = "marital status required")
     @Enumerated(EnumType.STRING)
     private MaritalStatus maritalStatus;
 
+    @Valid
     @ElementCollection
     @Builder.Default
     @CollectionTable(name = "Citizen_addresses", joinColumns = @JoinColumn(name = "citizen_id"))
