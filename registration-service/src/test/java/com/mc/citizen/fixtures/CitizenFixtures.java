@@ -86,12 +86,12 @@ public class CitizenFixtures {
             "Maria",
             "Schneider",
             LocalDate.of(1990, 8, 25),
-            "Nürnberg",
+            "Nuremberg",
             "maria.schneider@example.de",
             List.of(new ApiPhone("0911234567", ApiPhoneType.WORK)),
             ApiMaritalStatus.SINGLE,
             List.of(
-                    new ApiAddress(ApiAddressTyp.MAIN, "Königstrasse 22", "90402", "Nürnberg"),
+                    new ApiAddress(ApiAddressTyp.MAIN, "Königstrasse 22", "90402", "Nuremberg"),
                     new ApiAddress(ApiAddressTyp.SECONDARY, "Blumenweg 5", "91301", "Forchheim")
             )
     );
@@ -148,19 +148,35 @@ public class CitizenFixtures {
 
     public static List<ApiCitizenResponse> responseList = List.of(response1, response2);
 
-    public static ApiCitizenResponse updateResponse1 = new ApiCitizenResponse(
-            citizenId1,
-            LocalDateTime.of(2024, 1, 10, 14, 30).atZone(ZoneId.systemDefault()).toOffsetDateTime(),
-            LocalDateTime.of(2024, 5, 12, 9, 45).atZone(ZoneId.systemDefault()).toOffsetDateTime(),
+    public static ApiCitizenRequest wrongRequest = new ApiCitizenRequest(
             List.of(ApiTitle.DR),
             ApiGender.MALE,
-            "Jean",
-            "Dupont",
+            "",
+            "",
             LocalDate.of(1985, 3, 14),
-            "Paris",
-            "dupont123jean@gmail.com",
-            List.of(new ApiPhone("0176586224", ApiPhoneType.MOBILE)),
+            "",
+            "dupont123jean@gmail",
+            List.of(new ApiPhone("", ApiPhoneType.MOBILE)),
             ApiMaritalStatus.MARRIED,
             List.of(new ApiAddress(ApiAddressTyp.MAIN, "12 Rue Victor Hugo", "75001", "Paris"))
     );
+
+    public static Citizen wrongCitizen2 = Citizen.builder()
+            .id(citizenId2)
+            .createdAt(LocalDateTime.of(2024, 2, 5, 10, 20))
+            .updatedAt(LocalDateTime.of(2024, 6, 7, 16, 30))
+            .titles(Set.of(Title.PROF, Title.ING))
+            .gender(Gender.FEMALE)
+            .firstName("")
+            .lastName("")
+            .birthDate(LocalDate.of(1990, 8, 25))
+            .birthPlace("")
+            .email("maria.schneider@example")
+            .phones(Set.of(new Phone("", PhoneType.WORK)))
+            .maritalStatus(MaritalStatus.SINGLE)
+            .addresses(Set.of(
+                    new Address(AddressTyp.MAIN, "", "90402", ""),
+                    new Address(AddressTyp.SECONDARY, "Blumenweg 5", "", "Forchheim")
+            ))
+            .build();
 }

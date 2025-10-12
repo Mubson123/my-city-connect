@@ -9,15 +9,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v2/registration-service")
+@RequestMapping("/api/v2/registration")
 public class CitizenController implements RegistrationControllerApi {
 
     private final CitizenService citizenService;
@@ -34,11 +32,7 @@ public class CitizenController implements RegistrationControllerApi {
 
     @Override
     public ResponseEntity<ApiCitizenResponse> createCitizen(ApiCitizenRequest apiCitizenRequest) {
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("http:localhost:9091/api/v2/registration-service")
-                .build().toUri();
         return ResponseEntity.status(HttpStatus.CREATED)
-                .location(location)
                 .body(citizenService.createCitizen(apiCitizenRequest));
     }
 
