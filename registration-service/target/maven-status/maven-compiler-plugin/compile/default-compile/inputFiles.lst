@@ -1,7 +1,9 @@
+D:\Workspace\Spring-Boot\my-city-connect\registration-service\src\main\java\com\mc\citizen\config\KafkaConfig.java
 D:\Workspace\Spring-Boot\my-city-connect\registration-service\src\main\java\com\mc\citizen\controller\CitizenController.java
 D:\Workspace\Spring-Boot\my-city-connect\registration-service\src\main\java\com\mc\citizen\exception\CitizenAlreadyExistsByEmailException.java
 D:\Workspace\Spring-Boot\my-city-connect\registration-service\src\main\java\com\mc\citizen\exception\CitizenControllerAdvice.java
 D:\Workspace\Spring-Boot\my-city-connect\registration-service\src\main\java\com\mc\citizen\exception\CitizenNotFoundException.java
+D:\Workspace\Spring-Boot\my-city-connect\registration-service\src\main\java\com\mc\citizen\kafka\KafkaProducerService.java
 D:\Workspace\Spring-Boot\my-city-connect\registration-service\src\main\java\com\mc\citizen\mapper\CitizenMapper.java
 D:\Workspace\Spring-Boot\my-city-connect\registration-service\src\main\java\com\mc\citizen\model\Citizen.java
 D:\Workspace\Spring-Boot\my-city-connect\registration-service\src\main\java\com\mc\citizen\model\util\Address.java
@@ -28,3 +30,6 @@ D:\Workspace\Spring-Boot\my-city-connect\registration-service\target\generated-s
 D:\Workspace\Spring-Boot\my-city-connect\registration-service\target\generated-sources\openapi\src\main\java\com\mc\citizen\model\ApiTitle.java
 D:\Workspace\Spring-Boot\my-city-connect\registration-service\target\generated-sources\openapi\src\main\java\com\mc\citizen\RegistrationControllerApi.java
 D:\Workspace\Spring-Boot\my-city-connect\registration-service\target\generated-sources\openapi\src\main\java\org\openapitools\configuration\EnumConverterConfiguration.java
+D:\Workspace\Spring-Boot\my-city-connect\registration-service\target\generated-sources\protobuf\java\registration\event\RegistrationEvent.java
+D:\Workspace\Spring-Boot\my-city-connect\registration-service\target\generated-sources\protobuf\java\registration\event\RegistrationEventOrBuilder.java
+D:\Workspace\Spring-Boot\my-city-connect\registration-service\target\generated-sources\protobuf\java\registration\event\RegistrationEventOuterClass.java

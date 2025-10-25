@@ -1,6 +1,7 @@
 package com.mc.citizen.service;
 
 import com.mc.citizen.exception.CitizenAlreadyExistsByEmailException;
+import com.mc.citizen.kafka.KafkaProducerService;
 import com.mc.citizen.model.ApiCitizenRequest;
 import com.mc.citizen.model.ApiCitizenResponse;
 import com.mc.citizen.exception.CitizenNotFoundException;
@@ -10,6 +11,7 @@ import com.mc.citizen.repository.CitizenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -22,6 +24,7 @@ public class CitizenServiceImpl implements CitizenService {
 
     private final CitizenRepository citizenRepository;
     private final CitizenMapper citizenMapper;
+    private final KafkaProducerService kafkaProducerService;
 
     @Override
     public List<ApiCitizenResponse> getCitizens(int limit) {
@@ -41,6 +44,7 @@ public class CitizenServiceImpl implements CitizenService {
         return citizenMapper.toApiResponse(citizen);
     }
 
+    @Transactional
     @Override
     public ApiCitizenResponse createCitizen(ApiCitizenRequest citizenRequest) {
         final String email = citizenRequest.getEmail();
@@ -50,9 +54,11 @@ public class CitizenServiceImpl implements CitizenService {
         }
         Citizen citizen = citizenMapper.toCitizen(citizenRequest);
         citizen = citizenRepository.save(citizen);
+        kafkaProducerService.sendEvent(citizen, "CITIZEN_CREATED");
         return citizenMapper.toApiResponse(citizen);
     }
 
+    @Transactional
     @Override
     public ApiCitizenResponse updateCitizen(UUID citizenId, ApiCitizenRequest citizenRequest) {
         Citizen citizen = citizenRepository
@@ -63,9 +69,11 @@ public class CitizenServiceImpl implements CitizenService {
         updatedCitizen.setId(citizenId);
         updatedCitizen.setCreatedAt(citizen.getCreatedAt());
         updatedCitizen = citizenRepository.save(updatedCitizen);
+        kafkaProducerService.sendEvent(citizen, "CITIZEN_UPDATED");
         return citizenMapper.toApiResponse(updatedCitizen);
     }
 
+    @Transactional
     @Override
     public void deleteCitizen(UUID citizenId) {
         Citizen citizen = citizenRepository
