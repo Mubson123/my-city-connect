@@ -1,6 +1,7 @@
 package com.mc.citizen.service;
 
 import com.mc.citizen.exception.CitizenAlreadyExistsByEmailException;
+import com.mc.citizen.kafka.KafkaProducerService;
 import com.mc.citizen.model.ApiCitizenRequest;
 import com.mc.citizen.model.ApiCitizenResponse;
 import com.mc.citizen.exception.CitizenNotFoundException;
@@ -8,8 +9,6 @@ import com.mc.citizen.fixtures.CitizenFixtures;
 import com.mc.citizen.mapper.CitizenMapperImpl;
 import com.mc.citizen.model.Citizen;
 import com.mc.citizen.repository.CitizenRepository;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -32,6 +31,8 @@ class CitizenServiceTest {
     private CitizenRepository citizenRepository;
     @Mock
     private CitizenMapperImpl citizenMapper;
+    @Mock
+    private KafkaProducerService kafkaProducerService;
     @InjectMocks
     private CitizenServiceImpl citizenService;
 
@@ -92,6 +93,7 @@ class CitizenServiceTest {
         when(citizenRepository.existsByEmail(citizen.getEmail())).thenReturn(false);
         when(citizenMapper.toCitizen(citizenRequest)).thenReturn(citizen);
         when(citizenRepository.save(citizen)).thenReturn(citizen);
+        doNothing().when(kafkaProducerService).sendEvent(citizen, "CITIZEN_CREATED");
         when(citizenMapper.toApiResponse(citizen)).thenReturn(expected);
 
         ApiCitizenResponse actual = citizenService.createCitizen(citizenRequest);
@@ -125,6 +127,7 @@ class CitizenServiceTest {
         when(citizenRepository.findById(citizenId)).thenReturn(Optional.of(citizen));
         when(citizenMapper.toCitizen(citizenRequest)).thenReturn(updatedCitizen);
         when(citizenRepository.save(updatedCitizen)).thenReturn(updatedCitizen);
+        doNothing().when(kafkaProducerService).sendEvent(citizen, "CITIZEN_UPDATED");
         when(citizenMapper.toApiResponse(updatedCitizen)).thenReturn(expected);
 
         ApiCitizenResponse actual = citizenService.updateCitizen(citizenId, citizenRequest);
