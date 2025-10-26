@@ -2,17 +2,36 @@ server:
   port: 9091
 
 spring:
-  profiles:
-    active: dev
+  application:
+    name: registration-service
+
+# TO USE ONLY FOR TESTING
+
+#  datasource:
+#    driver-class-name: org.h2.Driver
+#    password: password
+#    url: jdbc:h2:mem:testdb
+#    username: admin_viewer
+#  h2:
+#    console:
+#      enabled: true
+#      path: /h2-console
+#  jpa:
+#    database-platform: org.hibernate.dialect.H2Dialect
+#    hibernate:
+#      ddl-auto: update
+#  sql:
+#    init:
+#      mode: always
 
   kafka:
-    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9094}
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
 
 kafka:
-  bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+  bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9094}
   topic:
     citizen-events: citizen-events
 
