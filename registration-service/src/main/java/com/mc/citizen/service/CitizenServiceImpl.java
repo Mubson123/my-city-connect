@@ -68,8 +68,9 @@ public class CitizenServiceImpl implements CitizenService {
         Citizen updatedCitizen = citizenMapper.toCitizen(citizenRequest);
         updatedCitizen.setId(citizenId);
         updatedCitizen.setCreatedAt(citizen.getCreatedAt());
+        updatedCitizen.setUpdatedAt(citizen.getUpdatedAt());
         updatedCitizen = citizenRepository.save(updatedCitizen);
-        kafkaProducerService.sendEvent(citizen, "CITIZEN_UPDATED");
+        kafkaProducerService.sendEvent(updatedCitizen, "CITIZEN_UPDATED");
         return citizenMapper.toApiResponse(updatedCitizen);
     }
 
