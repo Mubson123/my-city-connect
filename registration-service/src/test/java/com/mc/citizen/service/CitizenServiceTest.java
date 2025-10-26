@@ -127,7 +127,7 @@ class CitizenServiceTest {
         when(citizenRepository.findById(citizenId)).thenReturn(Optional.of(citizen));
         when(citizenMapper.toCitizen(citizenRequest)).thenReturn(updatedCitizen);
         when(citizenRepository.save(updatedCitizen)).thenReturn(updatedCitizen);
-        doNothing().when(kafkaProducerService).sendEvent(citizen, "CITIZEN_UPDATED");
+        doNothing().when(kafkaProducerService).sendEvent(updatedCitizen, "CITIZEN_UPDATED");
         when(citizenMapper.toApiResponse(updatedCitizen)).thenReturn(expected);
 
         ApiCitizenResponse actual = citizenService.updateCitizen(citizenId, citizenRequest);
