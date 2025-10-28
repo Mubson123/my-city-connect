@@ -5,12 +5,13 @@ networks:
 services:
 
   postgres:
-    image: postgres:14.2
+    image: postgres:16-alpine
     container_name: postgres
     restart: always
     env_file:
       - .env
     environment:
+      POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USERNAME}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
@@ -103,9 +104,9 @@ services:
       - "9091:9091"
     environment:
       KAFKA_BOOTSTRAP_SERVERS: ${KAFKA_SERVERS}
-      POSTGRES_USER: ${POSTGRES_USERNAME}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_URL: ${REGISTRATION_POSTGRES_URL}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      SPRING_DATASOURCE_URL: ${REGISTRATION_POSTGRES_URL}
     depends_on:
       - kafka
       - postgres
