@@ -1,0 +1,31 @@
+server:
+  port: 9091
+
+spring:
+  application:
+    name: extend-residence-permit-service
+
+  datasource:
+    url: ${REGISTRATION_POSTGRES_URL:jdbc:postgresql://localhost:5432/registration_db}
+    username: ${POSTGRES_USERNAME:postgres}
+    password: ${POSTGRES_PASSWORD:}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9094}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
+
+kafka:
+  bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9094}
+  topic:
+    citizen-events: extend-events
+
+logging:
+  level:
+    root: INFO
+    org.springframework.kafka: INFO
