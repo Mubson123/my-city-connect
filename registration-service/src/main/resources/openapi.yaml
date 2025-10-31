@@ -21,8 +21,6 @@ paths:
       summary: Returns A List Of All The Citizens
       description: Returns A List Of All The Citizen
       operationId: getAllCitizens
-      parameters:
-        - $ref: '#/components/parameters/limitParam'
       responses:
         200:
           description: Successfully Operation
@@ -376,14 +374,6 @@ components:
 
 
   parameters:
-    limitParam:
-      name: limit
-      in: query
-      description: Limits the number of items ono a page
-      schema:
-        type: integer
-        format: int32
-
     citizenId:
       name: citizenId
       in: path

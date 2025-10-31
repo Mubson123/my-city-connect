@@ -52,7 +52,7 @@
                     </configuration>
                 </plugin>
 
-                <!-- Spring Boot Maven Plugin (commun à tous les modules) -->
+                <!-- Spring Boot Maven Plugin (common to all modules) -->
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>

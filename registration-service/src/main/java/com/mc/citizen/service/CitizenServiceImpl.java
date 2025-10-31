@@ -1,15 +1,14 @@
 package com.mc.citizen.service;
 
 import com.mc.citizen.exception.CitizenAlreadyExistsByEmailException;
+import com.mc.citizen.exception.CitizenNotFoundException;
 import com.mc.citizen.kafka.KafkaProducerService;
+import com.mc.citizen.mapper.CitizenMapper;
 import com.mc.citizen.model.ApiCitizenRequest;
 import com.mc.citizen.model.ApiCitizenResponse;
-import com.mc.citizen.exception.CitizenNotFoundException;
-import com.mc.citizen.mapper.CitizenMapper;
 import com.mc.citizen.model.Citizen;
 import com.mc.citizen.repository.CitizenRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,11 +26,8 @@ public class CitizenServiceImpl implements CitizenService {
     private final KafkaProducerService kafkaProducerService;
 
     @Override
-    public List<ApiCitizenResponse> getCitizens(int limit) {
-        if (limit <= 0) {
-            throw new IllegalArgumentException("limit should be greater than 0");
-        }
-        List<Citizen> citizens = citizenRepository.findAll(Pageable.ofSize(limit)).getContent();
+    public List<ApiCitizenResponse> getCitizens() {
+        List<Citizen> citizens = citizenRepository.findAll();
         return citizenMapper.toApiResponses(citizens);
     }
 

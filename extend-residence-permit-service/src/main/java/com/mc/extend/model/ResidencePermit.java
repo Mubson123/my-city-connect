@@ -43,4 +43,8 @@ public class ResidencePermit {
     @OneToOne
     @JoinColumn(name = "passport_id", unique = true)
     private Passport passport;
+
+    @OneToOne
+    @JoinColumn(name = "i_d_cart_id")
+    private IdentificationCart iDCart;
 }
