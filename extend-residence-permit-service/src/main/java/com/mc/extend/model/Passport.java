@@ -40,6 +40,9 @@ public class Passport {
     private LocalDate issuedAt;
     @Column(nullable = false)
     private LocalDate expiredAt;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
     @NotBlank(message = "Firstname required")
     private String firstname;
     @NotBlank(message = "Lastname required")

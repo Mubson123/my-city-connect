@@ -1,12 +1,12 @@
 package com.mc.citizen.service;
 
 import com.mc.citizen.exception.CitizenAlreadyExistsByEmailException;
-import com.mc.citizen.kafka.KafkaProducerService;
-import com.mc.citizen.model.ApiCitizenRequest;
-import com.mc.citizen.model.ApiCitizenResponse;
 import com.mc.citizen.exception.CitizenNotFoundException;
 import com.mc.citizen.fixtures.CitizenFixtures;
+import com.mc.citizen.kafka.KafkaProducerService;
 import com.mc.citizen.mapper.CitizenMapperImpl;
+import com.mc.citizen.model.ApiCitizenRequest;
+import com.mc.citizen.model.ApiCitizenResponse;
 import com.mc.citizen.model.Citizen;
 import com.mc.citizen.repository.CitizenRepository;
 import org.junit.jupiter.api.Test;
@@ -14,9 +14,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -41,26 +38,17 @@ class CitizenServiceTest {
     void shouldReturnAllGivenCitizensSuccessfully() {
         List<Citizen> citizens = CitizenFixtures.citizenList;
         List<ApiCitizenResponse> expected = CitizenFixtures.responseList;
-        Page<Citizen> page = new PageImpl<>(citizens);
-        int limit = 2;
-        when(citizenRepository.findAll(Pageable.ofSize(limit))).thenReturn(page);
+        when(citizenRepository.findAll()).thenReturn(citizens);
         when(citizenMapper.toApiResponses(citizens)).thenReturn(expected);
 
-        List<ApiCitizenResponse> actual = citizenService.getCitizens(limit);
+        List<ApiCitizenResponse> actual = citizenService.getCitizens();
         assertNotNull(actual);
         assertEquals(2, actual.size());
         assertEquals("Jean", actual.get(0).getFirstName());
         assertEquals("Maria", actual.get(1).getFirstName());
 
-        verify(citizenRepository, times(1)).findAll(Pageable.ofSize(limit));
+        verify(citizenRepository, times(1)).findAll();
         verify(citizenMapper, times(1)).toApiResponses(citizens);
-    }
-
-    @Test
-    void shouldThrowExceptionWhenFromNegative() {
-        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
-                () -> citizenService.getCitizens(0));
-        assertEquals("limit should be greater than 0", ex.getMessage());
     }
 
     @Test

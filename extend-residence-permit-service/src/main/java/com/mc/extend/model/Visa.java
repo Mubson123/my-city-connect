@@ -38,5 +38,5 @@ public class Visa {
     @Enumerated(EnumType.STRING)
     private VisaType visaType;
     @NotBlank(message = "Country required")
-    private String country;
+    private String countryOfIssue;
 }

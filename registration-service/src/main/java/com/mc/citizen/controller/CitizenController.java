@@ -21,8 +21,8 @@ public class CitizenController implements RegistrationControllerApi {
     private final CitizenService citizenService;
 
     @Override
-    public ResponseEntity<List<ApiCitizenResponse>> getAllCitizens(Integer limit) {
-        return ResponseEntity.ok(citizenService.getCitizens(limit));
+    public ResponseEntity<List<ApiCitizenResponse>> getAllCitizens() {
+        return ResponseEntity.ok(citizenService.getCitizens());
     }
 
     @Override

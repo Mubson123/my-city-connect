@@ -94,20 +94,6 @@ class CitizenControllerIT {
     }
 
     @Test
-    @Order(22)
-    void shouldGetCitizensByLimitFailed() throws Exception {
-        int limit = -1;
-
-        mockMvc.perform(get(BASE_PATH)
-                        .param("limit", String.valueOf(limit))
-                        .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.fieldErrors.message").value("limit should be greater than 0"))
-                .andExpect(jsonPath("$.error").value("Invalid request argument"));
-    }
-
-    @Test
     @Order(30)
     void shouldGetCitizensById() throws Exception {
         mockMvc.perform(get(BASE_PATH + "/{id}", id)

@@ -19,7 +19,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class IdentificationCarte {
+public class IdentificationCart {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
@@ -31,8 +31,8 @@ public class IdentificationCarte {
     @LastModifiedDate
     @Column(nullable = false)
     private LocalDateTime updatedAt;
-    @NotBlank(message = "ID Carte number required")
-    private String iDCarteNumber;
+    @NotBlank(message = "ID Cart number required")
+    private String iDCartNumber;
     @Column(nullable = false)
     private LocalDate issuedAt;
     @Column(nullable = false)

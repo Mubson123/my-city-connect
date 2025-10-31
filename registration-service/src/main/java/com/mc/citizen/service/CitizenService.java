@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface CitizenService {
-    List<ApiCitizenResponse> getCitizens(int limit);
+    List<ApiCitizenResponse> getCitizens();
     ApiCitizenResponse getCitizenById(UUID citizenId);
     ApiCitizenResponse createCitizen(ApiCitizenRequest apiCitizenRequest);
     ApiCitizenResponse updateCitizen(UUID citizenId, ApiCitizenRequest apiCitizenRequestDto);
