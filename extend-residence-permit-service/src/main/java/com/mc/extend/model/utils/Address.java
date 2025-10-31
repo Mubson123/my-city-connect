@@ -1,4 +1,4 @@
-package com.mc.extend.model;
+package com.mc.extend.model.utils;
 
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotBlank;
