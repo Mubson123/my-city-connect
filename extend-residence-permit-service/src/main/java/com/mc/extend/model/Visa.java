@@ -39,6 +39,6 @@ public class Visa {
     private LocalDate expiresAt;
     @Enumerated(EnumType.STRING)
     private VisaType visaType;
-    @NotBlank(message = "Country required")
+    @NotBlank(message = "Country of issue required")
     private String countryOfIssue;
 }

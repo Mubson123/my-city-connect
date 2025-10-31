@@ -35,7 +35,7 @@ class CitizenServiceTest {
 
 
     @Test
-    void shouldReturnAllGivenCitizensSuccessfully() {
+    void shouldReturnAllCitizensSuccessfully() {
         List<Citizen> citizens = CitizenFixtures.citizenList;
         List<ApiCitizenResponse> expected = CitizenFixtures.responseList;
         when(citizenRepository.findAll()).thenReturn(citizens);
