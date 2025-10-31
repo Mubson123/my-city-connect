@@ -259,37 +259,37 @@
                 <artifactId>openapi-generator-maven-plugin</artifactId>
                 <version>7.16.0</version>
 
-                <executions>
-                    <execution>
-                        <id>generate-spring-code</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <inputSpec>${project.basedir}/src/main/resources/openapi.yaml</inputSpec>
-                            <output>${project.build.directory}/generated-sources/openapi</output>
-                            <generatorName>spring</generatorName>
-                            <apiPackage>com.mc.extend</apiPackage>
-                            <modelPackage>com.mc.extend.model</modelPackage>
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>generate-spring-code</id>-->
+<!--                        <goals>-->
+<!--                            <goal>generate</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <inputSpec>${project.basedir}/src/main/resources/openapi.yaml</inputSpec>-->
+<!--                            <output>${project.build.directory}/generated-sources/openapi</output>-->
+<!--                            <generatorName>spring</generatorName>-->
+<!--                            <apiPackage>com.mc.extend</apiPackage>-->
+<!--                            <modelPackage>com.mc.extend.model</modelPackage>-->
 
-                            <skipValidateSpec>false</skipValidateSpec>
-                            <generateApiTests>false</generateApiTests>
-                            <generateModelTests>false</generateModelTests>
-                            <modelNamePrefix>Api</modelNamePrefix>
-                            <skipOverwrite>false</skipOverwrite>
-                            <configOptions>
-                                <interfaceOnly>true</interfaceOnly>
-                                <useSpringBoot3>true</useSpringBoot3>
-                                <dateLibrary>java8</dateLibrary>
-                                <useOptional>false</useOptional>
-                                <apiNamePrefix>Api</apiNamePrefix>
-                                <serializableModel>true</serializableModel>
-                                <delegatePattern>true</delegatePattern>
-                                <useTags>true</useTags>
-                            </configOptions>
-                        </configuration>
-                    </execution>
-                </executions>
+<!--                            <skipValidateSpec>false</skipValidateSpec>-->
+<!--                            <generateApiTests>false</generateApiTests>-->
+<!--                            <generateModelTests>false</generateModelTests>-->
+<!--                            <modelNamePrefix>Api</modelNamePrefix>-->
+<!--                            <skipOverwrite>false</skipOverwrite>-->
+<!--                            <configOptions>-->
+<!--                                <interfaceOnly>true</interfaceOnly>-->
+<!--                                <useSpringBoot3>true</useSpringBoot3>-->
+<!--                                <dateLibrary>java8</dateLibrary>-->
+<!--                                <useOptional>false</useOptional>-->
+<!--                                <apiNamePrefix>Api</apiNamePrefix>-->
+<!--                                <serializableModel>true</serializableModel>-->
+<!--                                <delegatePattern>true</delegatePattern>-->
+<!--                                <useTags>true</useTags>-->
+<!--                            </configOptions>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
             </plugin>
 
         </plugins>
