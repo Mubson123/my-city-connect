@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: extend-residence-service
+    name: extend-residence-permit-service
 
   # TO USE ONLY FOR TESTING
 

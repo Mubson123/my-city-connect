@@ -620,24 +620,37 @@ components:
           type: string
           format: date-time
           example: 2025-10-08T11:06:49.359Z
+        iDCartNumber:
+          type: string
+          example: 1234567890
         issuedAt:
           type: string
           format: date
           example: 2024-06-17
         expiresAt:
           type: string
-        visaId:
+          format: date
+          example: 2025-10-08
+        gender:
+          $ref: '#/components/schemas/Gender'
+        firstname:
           type: string
-          format: uuid
-          example: 188b1190-e106-4687-8b11-90e106768749
-        passportId:
+          example: John
+        lastname:
           type: string
-          format: uuid
-          example: 188b1190-e106-4687-8b11-90e106768749
-        iDCartId:
+          example: Bauer
+        birthdate:
           type: string
-          format: uuid
-          example: 188b1190-e106-4687-8b11-90e106768749
+          format: date
+          example: 1945-01-01
+        birthplace:
+          type: string
+          example: Nuremberg
+        nationality:
+          type: string
+          example: French
+        address:
+          $ref: '#/components/schemas/Address'
 
 
     ResidencePermitRequest:

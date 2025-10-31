@@ -1,5 +1,6 @@
 package com.mc.extend.model;
 
+import com.mc.extend.model.utils.VisaType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -34,7 +35,7 @@ public class Visa {
     @Column(nullable = false)
     private LocalDate issuedAt;
     @Column(nullable = false)
-    private LocalDate expiredAt;
+    private LocalDate expiresAt;
     @Enumerated(EnumType.STRING)
     private VisaType visaType;
     @NotBlank(message = "Country required")

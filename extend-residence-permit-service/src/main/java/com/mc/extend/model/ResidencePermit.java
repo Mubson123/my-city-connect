@@ -34,7 +34,7 @@ public class ResidencePermit {
     @Column(nullable = false)
     private LocalDate issuedAt;
     @Column(nullable = false)
-    private LocalDate expiredAt;
+    private LocalDate expiresAt;
 
     @OneToOne
     @JoinColumn(name = "visa_id", unique = true)

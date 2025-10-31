@@ -1,5 +1,8 @@
 package com.mc.extend.model;
 
+import com.mc.extend.model.utils.Address;
+import com.mc.extend.model.utils.Gender;
+import com.mc.extend.model.utils.PassportType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -39,7 +42,7 @@ public class Passport {
     @Column(nullable = false)
     private LocalDate issuedAt;
     @Column(nullable = false)
-    private LocalDate expiredAt;
+    private LocalDate expiresAt;
     @NotNull
     @Enumerated(EnumType.STRING)
     private Gender gender;
