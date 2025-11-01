@@ -7,8 +7,8 @@ spring:
 
   datasource:
     url: ${REGISTRATION_POSTGRES_URL:jdbc:postgresql://localhost:5432/registration_db}
-    username: ${POSTGRES_USERNAME:city-admin}
-    password: ${POSTGRES_PASSWORD:p0stgr3SqL}
+    username: ${POSTGRES_USERNAME}
+    password: ${POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
