@@ -1,5 +1,5 @@
 server:
-  port: 9091
+  port: 9095
 
 spring:
   application:
@@ -13,6 +13,10 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 
   kafka:
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9094}
@@ -27,5 +31,5 @@ kafka:
 
 logging:
   level:
-    root: INFO
-    org.springframework.kafka: INFO
+    root: info
+    org.springframework.kafka: info

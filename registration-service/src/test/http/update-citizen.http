@@ -1,0 +1,30 @@
+### PUT request to create new citizen
+PUT http://localhost:9091/api/v2/registration/citizens/75ce9c42-c685-418f-af3c-123526f8d706
+Content-Type: application/json
+
+{
+  "titles": [
+    "PROF"
+  ],
+  "gender": "MALE",
+  "firstName": "John",
+  "lastName": "Bauer",
+  "birthDate": "1945-01-01",
+  "birthPlace": "Nuremberg",
+  "email": "example@email.com",
+  "phones": [
+    {
+      "number": "049176204738634",
+      "PhoneType": "MOBILE"
+    }
+  ],
+  "maritalStatus": "MARRIED",
+  "addresses": [
+    {
+      "type": "MAIN",
+      "street": "Bamberger Str. 54",
+      "zip": "91301",
+      "city": "Forchheim"
+    }
+  ]
+}

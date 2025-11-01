@@ -23,6 +23,7 @@ public class KafkaProducerService {
     public void sendEvent(Citizen citizen, String eventType) {
         RegistrationEvent registrationEvent =
                 RegistrationEvent.newBuilder()
+                        .setRegistrationId(citizen.getId().toString())
                         .setFirstname(citizen.getFirstName())
                         .setLastname(citizen.getLastName())
                         .setEmail(citizen.getEmail())

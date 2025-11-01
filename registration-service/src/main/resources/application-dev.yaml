@@ -27,8 +27,8 @@ spring:
 
   flyway:
     enabled: false
-    liquibase:
-      enabled: false
+  liquibase:
+    enabled: false
 
   kafka:
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9094}
@@ -43,8 +43,8 @@ kafka:
 
 logging:
   level:
-    root: WARN
-    org.springframework: INFO
-    org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql: TRACE
-    com.mc.citizen: DEBUG
+    root: warn
+    org.springframework: info
+    org.hibernate.SQL: debug
+    org.hibernate.type.descriptor.sql: trace
+    com.mc.citizen: debug

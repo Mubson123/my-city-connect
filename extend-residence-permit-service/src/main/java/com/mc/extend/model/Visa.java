@@ -3,6 +3,7 @@ package com.mc.extend.model;
 import com.mc.extend.model.utils.VisaType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -29,14 +30,15 @@ public class Visa {
     private LocalDateTime createdAt;
 
     @LastModifiedDate
-    @Column(nullable = false)
+    @NotNull(message = "updatedAt not nullable")
     private LocalDateTime updatedAt;
-    @NotBlank(message = "Visa number required")
+    @NotBlank(message = "VisaNumber required")
     private String visaNumber;
-    @Column(nullable = false)
+    @NotNull(message = "issuedAt not nullable")
     private LocalDate issuedAt;
-    @Column(nullable = false)
+    @NotNull(message = "expiresAt not nullable")
     private LocalDate expiresAt;
+    @NotNull(message = "visaType not nullable")
     @Enumerated(EnumType.STRING)
     private VisaType visaType;
     @NotBlank(message = "Country of issue required")

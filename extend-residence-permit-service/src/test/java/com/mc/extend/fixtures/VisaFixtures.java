@@ -99,7 +99,7 @@ public class VisaFixtures {
             .visaType(VisaType.MISSION)
             .countryOfIssue("")
             .createdAt(LocalDateTime.of(2024, 1, 10, 14, 30))
-            .updatedAt(LocalDateTime.of(2024, 5, 12, 9, 45))
+            .updatedAt(null)
             .issuedAt(LocalDate.of(2024, 1, 10))
             .expiresAt(LocalDate.of(2034, 5, 12))
             .build();
