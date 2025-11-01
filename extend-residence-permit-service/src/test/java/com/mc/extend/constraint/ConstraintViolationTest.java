@@ -28,12 +28,13 @@ class ConstraintViolationTest {
         Visa invalidVisa = VisaFixtures.invalidVisa;
 
         Set<ConstraintViolation<Visa>> violations = validator.validate(invalidVisa);
-        assertThat(violations).hasSize(2);
+        assertThat(violations).hasSize(3);
         assertThat(violations)
                 .extracting(ConstraintViolation::getMessage)
                 .containsExactlyInAnyOrder(
-                        "Visa number required",
-                        "Country of issue required"
+                        "VisaNumber required",
+                        "Country of issue required",
+                        "updatedAt not nullable"
                 );
     }
 }
