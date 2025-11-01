@@ -9,18 +9,18 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class KafkaProducerServiceVisa {
+public class KafkaProducerService {
 
     private final KafkaTemplate<String, byte[]> kafkaTemplate;
-    private final String visaTopic;
+    private final String topic;
 
-    public KafkaProducerServiceVisa(KafkaTemplate<String, byte[]> kafkaTemplate,
-                                    @Value("${kafka.topic.visa-events}") String visaTopic) {
+    public KafkaProducerService(KafkaTemplate<String, byte[]> kafkaTemplate,
+                                @Value("${kafka.topic.extend-residence-permit-events}") String topic) {
         this.kafkaTemplate = kafkaTemplate;
-        this.visaTopic = visaTopic;
+        this.topic = topic;
     }
 
-    public void sendEvent(Visa visa, String eventType) {
+    public void sendVisaEvents(Visa visa, String eventType) {
         VisaEvent visaEvent =
                 VisaEvent.newBuilder()
                         .setVisaId(visa.getId().toString())
@@ -33,7 +33,7 @@ public class KafkaProducerServiceVisa {
 
         try {
             String key = String.valueOf(visa.getId());
-            kafkaTemplate.send(visaTopic, key, visaEvent.toByteArray());
+            kafkaTemplate.send(topic, key, visaEvent.toByteArray());
             log.info("Visa Event sent: {}", visaEvent);
         } catch (Exception e) {
             log.error("Error sending Visa Event: {}", visaEvent);

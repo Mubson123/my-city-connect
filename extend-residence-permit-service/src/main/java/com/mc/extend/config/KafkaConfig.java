@@ -9,46 +9,13 @@ import org.springframework.kafka.config.TopicBuilder;
 @Configuration
 public class KafkaConfig {
 
-    @Value( "${kafka.topic.visa-events}")
-    private String visaTopic;
-
-    @Value( "${kafka.topic.visa-events}")
-    private String passportTopic;
-
-    @Value( "${kafka.topic.residence-permit-events}")
-    private String residencePermitTopic;
-
-    @Value( "${kafka.topic.residence-permit-events}")
-    private String identificationCartTopic;
+    @Value( "${kafka.topic.extend-residence-permit-events}")
+    private String extendResidencePermitTopic;
 
 
     @Bean
     public NewTopic visaEventsTopic() {
-        return TopicBuilder.name(visaTopic)
-                .partitions(3)
-                .replicas(1)
-                .build();
-    }
-
-    @Bean
-    public NewTopic passportEventsTopic() {
-        return TopicBuilder.name(passportTopic)
-                .partitions(3)
-                .replicas(1)
-                .build();
-    }
-
-    @Bean
-    public NewTopic residencePermitEventsTopic() {
-        return TopicBuilder.name(residencePermitTopic)
-                .partitions(3)
-                .replicas(1)
-                .build();
-    }
-
-    @Bean
-    public NewTopic identificationCartEventsTopic() {
-        return TopicBuilder.name(identificationCartTopic)
+        return TopicBuilder.name(extendResidencePermitTopic)
                 .partitions(3)
                 .replicas(1)
                 .build();

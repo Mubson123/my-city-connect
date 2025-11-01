@@ -1,7 +1,7 @@
 package com.mc.extend.service;
 
 import com.mc.extend.exception.VisaNotFoundException;
-import com.mc.extend.kafka.KafkaProducerServiceVisa;
+import com.mc.extend.kafka.KafkaProducerService;
 import com.mc.extend.mapper.VisaMapper;
 import com.mc.extend.model.ApiVisaRequest;
 import com.mc.extend.model.ApiVisaResponse;
@@ -19,7 +19,7 @@ import java.util.UUID;
 public class VisaServiceImpl implements VisaService {
     private static final String NOT_FOUND = "Visa with ID '%s' not found";
 
-    private final KafkaProducerServiceVisa kafkaProducerService;
+    private final KafkaProducerService kafkaProducerService;
     private final VisaRepository visaRepository;
     private final VisaMapper visaMapper;
 
@@ -43,7 +43,7 @@ public class VisaServiceImpl implements VisaService {
     public ApiVisaResponse createVisa(ApiVisaRequest apiVisaRequest) {
         Visa visa = visaMapper.toVisa(apiVisaRequest);
         visa = visaRepository.save(visa);
-        kafkaProducerService.sendEvent(visa, "VISA_CREATED");
+        kafkaProducerService.sendVisaEvents(visa, "VISA_CREATED");
         return visaMapper.toApiResponse(visa);
     }
 
@@ -59,7 +59,7 @@ public class VisaServiceImpl implements VisaService {
         updatedVisa.setCreatedAt(visa.getCreatedAt());
         updatedVisa.setUpdatedAt(visa.getUpdatedAt());
         updatedVisa = visaRepository.save(updatedVisa);
-        kafkaProducerService.sendEvent(updatedVisa, "VISA_UPDATED");
+        kafkaProducerService.sendVisaEvents(updatedVisa, "VISA_UPDATED");
         return visaMapper.toApiResponse(updatedVisa);
     }
 
@@ -70,7 +70,7 @@ public class VisaServiceImpl implements VisaService {
                 .findById(visaId)
                 .orElseThrow(() -> new VisaNotFoundException(
                         String.format(NOT_FOUND, visaId)));
-        kafkaProducerService.sendEvent(visa, "VISA_DELETED");
+        kafkaProducerService.sendVisaEvents(visa, "VISA_DELETED");
         visaRepository.delete(visa);
     }
 }
