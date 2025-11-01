@@ -37,7 +37,7 @@ public class VisaController implements VisaControllerApi {
 
     @Override
     public ResponseEntity<ApiVisaResponse> updateVisa(UUID visaId, ApiVisaRequest apiVisaRequest) {
-        return ResponseEntity.ok(visaService.updateVisa(visaId, apiVisaRequest));
+        return ResponseEntity.accepted().body(visaService.updateVisa(visaId, apiVisaRequest));
     }
 
     @Override

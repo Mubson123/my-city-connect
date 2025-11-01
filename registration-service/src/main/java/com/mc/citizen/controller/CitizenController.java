@@ -38,7 +38,7 @@ public class CitizenController implements RegistrationControllerApi {
 
     @Override
     public ResponseEntity<ApiCitizenResponse> updateCitizen(UUID citizenId, ApiCitizenRequest apiCitizenRequest) {
-        return ResponseEntity.ok(citizenService.updateCitizen(citizenId, apiCitizenRequest));
+        return ResponseEntity.accepted().body(citizenService.updateCitizen(citizenId, apiCitizenRequest));
     }
 
     @Override

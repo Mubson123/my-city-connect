@@ -27,10 +27,7 @@ spring:
 kafka:
   bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9094}
   topic:
-    visa-events: visa-events
-    passport-events: passport-events
-    residence-permit-events: residence-permit-events
-    identification-cart-events: identification-cart-events
+    extend-residence-permit-events: extend-residence-permit-events
 
 logging:
   level:

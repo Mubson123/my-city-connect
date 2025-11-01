@@ -2,7 +2,7 @@ package com.mc.extend.service;
 
 import com.mc.extend.exception.VisaNotFoundException;
 import com.mc.extend.fixtures.VisaFixtures;
-import com.mc.extend.kafka.KafkaProducerServiceVisa;
+import com.mc.extend.kafka.KafkaProducerService;
 import com.mc.extend.mapper.VisaMapper;
 import com.mc.extend.model.ApiVisaRequest;
 import com.mc.extend.model.ApiVisaResponse;
@@ -25,7 +25,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class VisaServiceTest {
     @Mock
-    private KafkaProducerServiceVisa kafkaProducerService;
+    private KafkaProducerService kafkaProducerService;
     @Mock
     private VisaRepository visaRepository;
     @Mock
@@ -79,7 +79,7 @@ class VisaServiceTest {
         ApiVisaResponse expected = VisaFixtures.response1;
         when(visaMapper.toVisa(visaRequest)).thenReturn(visa);
         when(visaRepository.save(visa)).thenReturn(visa);
-        doNothing().when(kafkaProducerService).sendEvent(visa, "VISA_CREATED");
+        doNothing().when(kafkaProducerService).sendVisaEvents(visa, "VISA_CREATED");
         when(visaMapper.toApiResponse(visa)).thenReturn(expected);
 
         ApiVisaResponse actual = visaService.createVisa(visaRequest);
@@ -110,7 +110,7 @@ class VisaServiceTest {
         when(visaRepository.findById(visaId)).thenReturn(Optional.of(visa));
         when(visaMapper.toVisa(visaRequest)).thenReturn(visa);
         when(visaRepository.save(visa)).thenReturn(visa);
-        doNothing().when(kafkaProducerService).sendEvent(visa, "VISA_UPDATED");
+        doNothing().when(kafkaProducerService).sendVisaEvents(visa, "VISA_UPDATED");
         when(visaMapper.toApiResponse(visa)).thenReturn(expected);
 
         ApiVisaResponse actual = visaService.updateVisa(visaId, visaRequest);
@@ -128,7 +128,7 @@ class VisaServiceTest {
         UUID visaId = VisaFixtures.visaId2;
         Visa visa = VisaFixtures.visa2;
         when(visaRepository.findById(visaId)).thenReturn(Optional.of(visa));
-        doNothing().when(kafkaProducerService).sendEvent(visa, "VISA_DELETED");
+        doNothing().when(kafkaProducerService).sendVisaEvents(visa, "VISA_DELETED");
         doNothing().when(visaRepository).delete(visa);
 
         visaService.deleteVisa(visaId);
