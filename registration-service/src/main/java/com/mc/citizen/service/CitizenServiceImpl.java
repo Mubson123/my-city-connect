@@ -77,6 +77,7 @@ public class CitizenServiceImpl implements CitizenService {
                 .findById(citizenId)
                 .orElseThrow(() -> new CitizenNotFoundException(
                         String.format(NOT_FOUND, citizenId)));
+        kafkaProducerService.sendEvent(citizen, "CITIZEN_DELETED");
         citizenRepository.delete(citizen);
     }
 }
