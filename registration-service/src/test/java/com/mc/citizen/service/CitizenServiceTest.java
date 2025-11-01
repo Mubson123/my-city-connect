@@ -134,6 +134,7 @@ class CitizenServiceTest {
         UUID citizenId = CitizenFixtures.citizenId2;
         Citizen citizen = CitizenFixtures.citizen2;
         when(citizenRepository.findById(citizenId)).thenReturn(Optional.of(citizen));
+        doNothing().when(kafkaProducerService).sendEvent(citizen, "CITIZEN_DELETED");
         doNothing().when(citizenRepository).delete(citizen);
 
         citizenService.deleteCitizen(citizenId);

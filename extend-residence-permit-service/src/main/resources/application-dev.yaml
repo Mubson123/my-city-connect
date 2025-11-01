@@ -39,12 +39,15 @@ spring:
 kafka:
   bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9095}
   topic:
-    citizen-events: extend-events
+    visa-events: visa-events
+    passport-events: passport-events
+    residence-permit-events: residence-permit-events
+    identification-cart-events: identification-cart-events
 
 logging:
   level:
-    root: WARN
-    org.springframework: INFO
-    org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql: TRACE
-    com.mc.citizen: DEBUG
+    root: warn
+    org.springframework: info
+    org.hibernate.SQL: debug
+    org.hibernate.type.descriptor.sql: trace
+    com.mc.citizen: debug
