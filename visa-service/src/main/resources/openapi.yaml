@@ -1,0 +1,294 @@
+openapi: 3.1.1
+info:
+  title: Extend Residence Permit Service
+  description: This service allows a citizen to extend his residence permit in his municipality.
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:9096/api/v2/visa'
+
+#security:
+#  - bearerAuth: []
+
+tags:
+  - name: Visa Controller
+    description: Visa REST Endpoints
+
+paths:
+
+  /visas:
+    get:
+      tags:
+        - Visa Controller
+      summary: Returns A List Of All The Visas
+      description: Returns A List Of All The Visa
+      operationId: getAllVisas
+      responses:
+        200:
+          description: Successfully Operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VisaResponse'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/Default'
+
+    post:
+      tags:
+        - Visa Controller
+      summary: Grant a new Visa
+      description: Grant a new Visa
+      operationId: createVisa
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VisaRequest'
+        required: true
+      responses:
+        201:
+          description: Visa successfully granted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VisaResponse'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/Default'
+
+
+  /visas/{id}:
+    get:
+      tags:
+        - Visa Controller
+      summary: Return a found Visa by ID
+      description: Return a found Visa by ID
+      operationId: getVisaById
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        200:
+          description: Successfully Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VisaResponse'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/Default'
+
+    put:
+      tags:
+        - Visa Controller
+      summary: Update a given Visa
+      operationId: updateVisa
+      parameters:
+        - $ref: '#/components/parameters/id'
+      requestBody:
+        description: Update the Visa
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VisaRequest'
+        required: true
+      responses:
+        202:
+          description: Successfully Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VisaResponse'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/Default'
+
+    delete:
+      tags:
+        - Visa Controller
+      summary: Delete A Visa By ID
+      description: Delete a Visa By ID
+      operationId: deleteVisa
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        204:
+          description: Successfully Operation
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/Default'
+
+components:
+  #  securitySchemes:
+  #    bearerAuth:
+  #      type: http
+  #      scheme: bearer
+  #      bearerFormat: JWT
+
+
+  schemas:
+    VisaRequest:
+      description: Visa Request
+      type: object
+      required:
+        - visaNumber
+        - issuedAt
+        - expiresAt
+        - visaType
+        - countryOfIssue
+      properties:
+        visaNumber:
+          type: string
+          example: 1234567890
+        issuedAt:
+          type: string
+          format: date
+          example: 2024-06-17
+        expiresAt:
+          type: string
+          format: date
+          example: 2025-10-08
+        visaType:
+          $ref: '#/components/schemas/VisaType'
+        countryOfIssue:
+          type: string
+          example: France
+
+    VisaResponse:
+      description: Visa Response
+      type: object
+      required:
+        - id
+        - createdAt
+        - updatedAt
+        - visaNumber
+        - issuedAt
+        - expiresAt
+        - visaType
+        - countryOfIssue
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 188b1190-e106-4687-8b11-90e106768749
+        createdAt:
+          type: string
+          format: date-time
+          example: 2024-06-17T25:10:56.946Z
+        updatedAt:
+          type: string
+          format: date-time
+          example: 2025-10-08T11:06:49.359Z
+        visaNumber:
+          type: string
+          example: 1234567890
+        issuedAt:
+          type: string
+          format: date
+          example: 2024-06-17
+        expiresAt:
+          type: string
+          format: date
+          example: 2025-10-08
+        visaType:
+          $ref: '#/components/schemas/VisaType'
+        countryOfIssue:
+          type: string
+          example: France
+
+    VisaType:
+      type: string
+      description: Citizen visa type
+      example: TOURISM
+      enum:
+        - STUDY
+        - TOURISM
+        - MISSION
+        - VISIT
+        - PERMANENT
+        - PATIENCE
+
+    Error:
+      type: object
+      description: Error Response
+      required:
+        - timestamp
+        - status
+        - error
+        - message
+        - path
+        - fieldErrors
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+        status:
+          type: integer
+          format: int32
+        error:
+          type: string
+        path:
+          type: string
+        fieldErrors:
+          type: object
+          additionalProperties:
+            type: string
+
+  parameters:
+    id:
+      name: id
+      in: path
+      description: ID of a registered Citizen
+      required: true
+      schema:
+        type: string
+        format: uuid
+
+  responses:
+    Unauthorized:
+      description: Access token is missing or unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Citizen Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Default:
+      description: Unexpected Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
