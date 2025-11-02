@@ -14,8 +14,8 @@
     <name>My City Connect Project</name>
 
     <modules>
+        <module>visa-service</module>
         <module>registration-service</module>
-        <module>extend-residence-permit-service</module>
     </modules>
 
     <properties>
