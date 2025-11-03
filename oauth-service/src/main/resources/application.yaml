@@ -1,21 +1,21 @@
 server:
-  port: 9091
+  port: 9097
 
 spring:
   application:
-    name: registration-service
+    name: oauth-service
 
   datasource:
-    url: ${POSTGRES_JDBC_URL:jdbc:h2:mem:citizen_db;DB_CLOSE_DELAY=-1;MODE=PostgreSQL}
+    url: ${POSTGRES_JDBC_URL:jdbc:h2:mem:oauth_db;DB_CLOSE_DELAY=-1;MODE=PostgreSQL}
     username: ${POSTGRES_USERNAME:sa}
     password: ${POSTGRES_PASSWORD:}
     driver-class-name:
-     - org.postgresql.Driver
-     - org.h2.Driver
+      - org.postgresql.Driver
+      - org.h2.Driver
 
   jpa:
     hibernate:
-      ddl-auto: ${POSTGRES_DDL_AUTO:create-drop}
+      ddl-auto: none
     show-sql: true
     properties:
       hibernate:
@@ -33,7 +33,9 @@ spring:
 kafka:
   bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9094}
   topic:
-    citizen-events: citizen-events
+    oauth-events: oauth-events
+
+jwt.key: ${JWT_SECRET:some-secret-key}
 
 logging:
   level:
