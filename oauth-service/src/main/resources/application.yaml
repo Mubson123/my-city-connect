@@ -35,7 +35,10 @@ kafka:
   topic:
     oauth-events: oauth-events
 
-jwt.key: ${JWT_SECRET:some-secret-key}
+jwt:
+  secret: SmVzdXMgcmV2aWVudCB0cmVzIGJpZW50LiBEb25jIGlsIGZhdXQgc2UgcHJlcGFyZXIgcHJvZm9uZGVtZW50Lg==
+  expiration-time: 36000000
+  refresh-expiration-time: 86400000
 
 logging:
   level:
