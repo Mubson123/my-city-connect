@@ -42,4 +42,33 @@ public class AuthFixtures {
             .accessToken("access_token")
             .refreshToken("refresh_token")
             .build();
+
+    public static User wrongUser1 = User.builder()
+            .createdAt(LocalDateTime.now())
+            .updatedAt(LocalDateTime.now())
+            .firstname("") // empty firstname
+            .lastname("Mustermann")
+            .email("max.mustermann@domain") // wrong email format
+            .password("password")
+            .role(Role.USER)
+            .build();
+
+    public static User wrongUser2 = User.builder()
+            .createdAt(LocalDateTime.now())
+            .updatedAt(LocalDateTime.now())
+            .firstname("Max")
+            .lastname("")
+            .email("max.mustermann@domain.com")
+            .password("pass") // short password
+            .role(Role.USER)
+            .build();
+    public static User wrongUser3 = User.builder()
+            .createdAt(LocalDateTime.now())
+            .updatedAt(LocalDateTime.now())
+            .firstname("Harry")
+            .lastname("Ty") // wrong last name
+            .email("harry.tyna@domain.com")
+            .password("password")
+            .role(Role.USER)
+            .build();
 }
