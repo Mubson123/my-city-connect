@@ -1,5 +1,6 @@
 package com.mc.oauth.service;
 
+import com.mc.oauth.models.Tokens;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -69,19 +70,6 @@ public class JwtService {
         return extractClaim(token, Claims::getExpiration);
     }
 
-    private  <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = extractAllClaims(token);
-        return claimsResolver.apply(claims);
-    }
-
-    private Claims extractAllClaims(String token) {
-        return Jwts.parser()
-                .verifyWith(getSecretKey())
-                .build()
-                .parseSignedClaims(token)
-                .getPayload();
-    }
-
     public boolean validateToken(String token) {
         try {
             Jwts.parser()
@@ -99,6 +87,27 @@ public class JwtService {
             log.warn("JWT token compact of handler are invalid: {}", e.getMessage());
         }
         return false;
+    }
+
+    public Tokens createTokens(Authentication authentication) {
+        String accessToken = generateAccessToken(authentication);
+        String refreshToken = generateRefreshToken(authentication);
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String email = userDetails.getUsername();
+        return new Tokens(email, accessToken, refreshToken);
+    }
+
+    private  <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = extractAllClaims(token);
+        return claimsResolver.apply(claims);
+    }
+
+    private Claims extractAllClaims(String token) {
+        return Jwts.parser()
+                .verifyWith(getSecretKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
     }
 
     private String generateToken(Authentication authentication, Long expirationMs, Map<String, Object> claims) {

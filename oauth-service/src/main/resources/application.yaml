@@ -6,41 +6,28 @@ spring:
     name: oauth-service
 
   datasource:
-    url: ${POSTGRES_JDBC_URL:jdbc:h2:mem:oauth_db;DB_CLOSE_DELAY=-1;MODE=PostgreSQL}
-    username: ${POSTGRES_USERNAME:sa}
-    password: ${POSTGRES_PASSWORD:}
-    driver-class-name:
-      - org.postgresql.Driver
-      - org.h2.Driver
+    url: ${DB_URL:jdbc:mysql://localhost:3306/authentication_db?useSSL=false&serverTimezone=UTC&characterEncoding=utf8&allowPublicKeyRetrieval=true}
+    username: ${DB_USER:admin}
+    password: ${DB_PASS:password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:
-      ddl-auto: none
-    show-sql: true
+      ddl-auto: update
     properties:
       hibernate:
-        dialect:
-          - org.hibernate.dialect.PostgreSQLDialect
-          - org.hibernate.dialect.H2Dialect
-
-
-  kafka:
-    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9094}
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
-
-kafka:
-  bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9094}
-  topic:
-    oauth-events: oauth-events
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+        jdbc:
+          time_zone: UTC
+    show-sql: true
 
 jwt:
-  secret: SmVzdXMgcmV2aWVudCB0cmVzIGJpZW50LiBEb25jIGlsIGZhdXQgc2UgcHJlcGFyZXIgcHJvZm9uZGVtZW50Lg==
+  secret: ${JWT_SECRET:flpZVEZrUG1ORD01Y2MxInkyP2oiQFFqeTN0TXk4NTk=}
   expiration-time: 36000000
   refresh-expiration-time: 86400000
 
 logging:
   level:
     root: info
-    org.springframework.kafka: info
+    org.springframework.security: info
