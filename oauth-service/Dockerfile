@@ -14,8 +14,8 @@ FROM eclipse-temurin:21-jdk AS runner
 
 WORKDIR /app
 
-COPY --from=builder ./app/target/registration-service-0.0.1-SNAPSHOT.jar ./app.jar
+COPY --from=builder ./app/target/oauth-service-0.0.1-SNAPSHOT.jar ./app.jar
 
-EXPOSE 9091
+EXPOSE 9097
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
