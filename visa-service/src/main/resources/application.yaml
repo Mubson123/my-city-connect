@@ -5,25 +5,6 @@ spring:
   application:
     name: visa-service
 
-  datasource:
-    url: ${POSTGRES_JDBC_URL:jdbc:h2:mem:visa_db;DB_CLOSE_DELAY=-1;MODE=PostgreSQL}
-    username: ${POSTGRES_USERNAME:sa}
-    password: ${POSTGRES_PASSWORD:}
-    driver-class-name:
-      - org.postgresql.Driver
-      - org.h2.Driver
-
-  jpa:
-    hibernate:
-      ddl-auto: ${POSTGRES_DDL_AUTO:create-drop}
-    properties:
-      hibernate:
-        dialect:
-          - org.hibernate.dialect.PostgreSQLDialect
-          - org.hibernate.dialect.H2Dialect
-        format_sql: true
-    show-sql: true
-
   kafka:
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9094}
     producer:

@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-@ActiveProfiles("dev")
+@ActiveProfiles("test")
 @EmbeddedKafka(partitions = 1, topics = { "citizen-events" })
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class CitizenControllerIT {

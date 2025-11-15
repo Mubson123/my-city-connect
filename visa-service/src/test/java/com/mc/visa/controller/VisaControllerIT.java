@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@ActiveProfiles("dev")
+@ActiveProfiles("test")
 @EmbeddedKafka(partitions = 1, topics = {"kafka.topic.visa-events"})
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class VisaControllerIT {
