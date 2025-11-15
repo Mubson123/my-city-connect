@@ -5,25 +5,6 @@ spring:
   application:
     name: oauth-service
 
-  datasource:
-    url: ${MYSQL_JDBC_URL:jdbc:h2:mem:auth_db;DB_CLOSE_DELAY=-1;MODE=MySQL}
-    username: ${MYSQL_USER:sa}
-    password: ${MYSQL_PASSWORD:}
-    driver-class-name:
-     - com.mysql.cj.jdbc.Driver
-     - org.h2.Driver
-
-  jpa:
-    hibernate:
-      ddl-auto: ${POSTGRES_DDL_AUTO:create-drop}
-    properties:
-      hibernate:
-        dialect:
-          - org.hibernate.dialect.MySQLDialect
-          - org.hibernate.dialect.H2Dialect
-        format_sql: true
-    show-sql: true
-
 jwt:
   secret: ${JWT_SECRET:flpZVEZrUG1ORD01Y2MxInkyP2oiQFFqeTN0TXk4NTk=}
   expiration-time: 36000000
@@ -33,3 +14,4 @@ logging:
   level:
     root: info
     org.springframework.security: info
+    org.springframework.web: info
