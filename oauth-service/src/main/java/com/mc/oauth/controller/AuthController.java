@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.URI;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -24,7 +26,11 @@ public class AuthController {
     @PostMapping("/sign-up")
     public ResponseEntity<String> signUp(@Valid @RequestBody SignUpRequest signUpRequest) {
         authService.signUp(signUpRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully");
+        URI redirectUri = URI.create("/api/auth/sign-in");
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .location(redirectUri)
+                .body("User registered successfully");
     }
 
     @PostMapping("/sign-in")
