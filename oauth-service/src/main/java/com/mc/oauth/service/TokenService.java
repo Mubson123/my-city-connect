@@ -15,6 +15,8 @@ public class TokenService {
     public Tokens registryTokens(Tokens tokens, String email) {
         if (email == null || email.isEmpty()) {
             throw new IllegalArgumentException("Email cannot be null or empty");
+        } else if (tokens == null) {
+            throw new IllegalArgumentException("Tokens cannot be null");
         }
         return tokenRepository.findByEmail(email).map(
                 token -> {
