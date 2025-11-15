@@ -20,7 +20,7 @@ public class AuthFixtures {
             .firstname("Max")
             .lastname("Mustermann")
             .email("max.mustermann@domain.com")
-            .password("password")
+            .password("y2?j^@Qj3tY859")
             .role(Role.USER)
             .build();
 
@@ -28,12 +28,12 @@ public class AuthFixtures {
             .firstname("Max")
             .lastname("Mustermann")
             .email("max.mustermann@domain.com")
-            .password("password")
+            .password("y2?j^@Qj3tY859")
             .build();
 
     public static SignInRequest signInRequest = SignInRequest.builder()
             .email("max.mustermann@domain.com")
-            .password("password")
+            .password("y2?j^@Qj3tY859")
             .build();
 
     public static Tokens tokens = Tokens.builder()
@@ -49,7 +49,7 @@ public class AuthFixtures {
             .firstname("") // empty firstname
             .lastname("Mustermann")
             .email("max.mustermann@domain") // wrong email format
-            .password("password")
+            .password("y2?j^@Qj3tY859")
             .role(Role.USER)
             .build();
 
@@ -68,7 +68,7 @@ public class AuthFixtures {
             .firstname("Harry")
             .lastname("Ty") // wrong last name
             .email("harry.tyna@domain.com")
-            .password("password")
+            .password("y2?j^@Qj3tY859")
             .role(Role.USER)
             .build();
 }

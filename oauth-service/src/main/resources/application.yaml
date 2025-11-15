@@ -12,8 +12,14 @@ spring:
     driver-class-name:
      - com.mysql.cj.jdbc.Driver
      - org.h2.Driver
-
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
   jpa:
+    database-platform:
+      - org.hibernate.dialect.MySQLDialect
+      - org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: ${POSTGRES_DDL_AUTO:create-drop}
     properties:
@@ -22,8 +28,6 @@ spring:
           - org.hibernate.dialect.MySQLDialect
           - org.hibernate.dialect.H2Dialect
         format_sql: true
-        jdbc:
-          time_zone: UTC
     show-sql: true
 
 jwt:
