@@ -4,7 +4,7 @@ info:
   description: This service allows a citizen to extend his residence permit in his municipality.
   version: 1.0.0
 servers:
-  - url: 'http://localhost:9096/api/v2/visa'
+  - url: 'http://localhost:9096/api'
 
 #security:
 #  - bearerAuth: []
