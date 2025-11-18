@@ -25,10 +25,6 @@ public class JwtValidationFilterFactory extends AbstractGatewayFilterFactory<Obj
                 return unauthorized(exchange);
             }
 
-            if (authHeader.startsWith("Bearer ")) {
-                authHeader = authHeader.substring(7);
-            }
-
             if (!jwtService.isValidToken(authHeader)) {
                 log.warn("Invalid JWT token");
                 return unauthorized(exchange);

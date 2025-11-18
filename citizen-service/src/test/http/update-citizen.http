@@ -1,5 +1,5 @@
 ### PUT request to create new citizen
-PUT http://localhost:9091/api/v2/registration/citizens/75ce9c42-c685-418f-af3c-123526f8d706
+PUT http://localhost:9091/api/citizens/75ce9c42-c685-418f-af3c-123526f8d706
 Content-Type: application/json
 
 {
