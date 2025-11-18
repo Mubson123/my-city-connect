@@ -1,0 +1,62 @@
+spring:
+
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            # OAuth Service Routes
+            - id: auth-service-route
+              uri: http://localhost:9097
+              predicates:
+                - Path=/api/auth/**
+              filters:
+                - StripPrefix=0
+
+            # Visa Service Routes
+            - id: visa-service-route
+              uri: http://localhost:9096
+              predicates:
+                - Path=/api/visas/**
+              filters:
+                - StripPrefix=0
+                - JwtValidationFilterFactory
+
+            # Registration Service Routes
+            - id: registration-service-route
+              uri: http://localhost:9091
+              predicates:
+                - Path=/api/citizens/**
+              filters:
+                - StripPrefix=0
+                - JwtValidationFilterFactory
+
+          # Global CORS configuration
+          globalcors:
+            cors-configurations:
+              '[/**]':
+                allowed-origins: "*"
+                allowedMethods:
+                  - GET
+                  - POST
+                  - PUT
+                  - DELETE
+                  - OPTIONS
+                allowed-headers: "*"
+                allow-credentials: false
+
+  # Actuator endpoints for monitoring
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,gateway
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    root: info
+    org.springframework.cloud.gateway: debug
+    org.springframework.web: debug

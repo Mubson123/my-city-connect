@@ -14,8 +14,6 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USERNAME}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    ports:
-      - "5431:5432"
     networks:
       - internal-network
     volumes:
@@ -38,8 +36,6 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_ALLOW_EMPTY_PASSWORD: no
-    ports:
-      - '3307:3306'
     networks:
       - internal-network
     volumes:
@@ -115,37 +111,52 @@ services:
     networks:
       - internal-network
 
-  oauth-service:
-    image: my-city-connect/oauth-service:latest
-    container_name: oauth-service
+  api-gateway:
+    image: my-city-connect/api-gateway:latest
+    container_name: api-gateway
     env_file:
       - .env
     build:
-      context: ./oauth-service/
+      context: ./api-gateway/
+      dockerfile: Dockerfile
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+    ports:
+      - "9098:9098"
+    depends_on:
+      - auth-service
+      - visa-service
+      - citizen-service
+    networks:
+      - internal-network
+
+  auth-service:
+    image: my-city-connect/auth-service:latest
+    container_name: auth-service
+    env_file:
+      - .env
+    build:
+      context: ./auth-service/
       dockerfile: Dockerfile
     environment:
       SPRING_PROFILES_ACTIVE: prod
       SPRING_DATASOURCE_URL: ${MYSQL_JDBC_URL}
       SPRING_DATASOURCE_USERNAME: ${MYSQL_USER}
       SPRING_DATASOURCE_PASSWORD: ${MYSQL_PASSWORD}
-    ports:
-      - '9097:9097'
     depends_on:
       mysql:
         condition: service_healthy
     networks:
       - internal-network
 
-  registration-service:
-    image: my-city-connect/registration-service:latest
-    container_name: registration-service
+  citizen-service:
+    image: my-city-connect/citizen-service:latest
+    container_name: citizen-service
     env_file:
       - .env
     build:
-      context: ./registration-service/
+      context: ./citizen-service/
       dockerfile: Dockerfile
-    ports:
-      - "9091:9091"
     environment:
       SPRING_PROFILES_ACTIVE: prod
       KAFKA_BOOTSTRAP_SERVERS: ${KAFKA_SERVERS}
@@ -166,8 +177,6 @@ services:
     build:
       context: ./visa-service/
       dockerfile: Dockerfile
-    ports:
-      - "9096:9096"
     environment:
       SPRING_PROFILES_ACTIVE: prod
       KAFKA_BOOTSTRAP_SERVERS: ${KAFKA_SERVERS}

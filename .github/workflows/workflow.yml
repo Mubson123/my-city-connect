@@ -1,28 +1,38 @@
-name: CI
+name: Build Microservice
 
-on: push
+on:
+  push:
+    branches: [ * ]
+  pull_request:
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up JDK
-        uses: actions/setup-java@v4
-        with:
-          java-version: '21'
-          distribution: 'temurin'
+        uses: actions/checkout@v3
 
       - name: Cache Maven dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v3
         with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          path: ~/.m2
+          key: m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
-            ${{ runner.os }}-maven-
+            m2-
 
-      - name: Build with Maven
-        run: mvn --batch-mode clean verify
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: 21
+          distribution: temurin
+          cache: maven
+
+      - name: Preload dependencies
+        run: mvn dependency:go-offline -B
+
+      - name: Run Tests
+        run: mvn test -B
+
+      - name: Build JAR
+        run: mvn package -DskipTests -B

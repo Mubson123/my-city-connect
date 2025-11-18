@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v2/residence-permit")
+@RequestMapping("/api/")
 public class VisaController implements VisaControllerApi {
 
     private final VisaService visaService;

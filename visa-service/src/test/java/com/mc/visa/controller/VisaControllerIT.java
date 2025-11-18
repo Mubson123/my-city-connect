@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @EmbeddedKafka(partitions = 1, topics = {"kafka.topic.visa-events"})
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class VisaControllerIT {
-    static final String BASE_PATH = "/api/v2/residence-permit/visas";
+    static final String BASE_PATH = "/api/visas";
     static String id;
 
     @Autowired

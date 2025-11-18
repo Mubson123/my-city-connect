@@ -14,9 +14,10 @@
     <name>My City Connect Project</name>
 
     <modules>
-        <module>oauth-service</module>
+        <module>api-gateway</module>
+        <module>auth-service</module>
         <module>visa-service</module>
-        <module>registration-service</module>
+        <module>citizen-service</module>
     </modules>
 
     <properties>

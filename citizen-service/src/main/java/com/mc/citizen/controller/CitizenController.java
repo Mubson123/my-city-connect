@@ -1,0 +1,49 @@
+package com.mc.citizen.controller;
+
+import com.mc.citizen.RegistrationControllerApi;
+import com.mc.citizen.model.ApiCitizenRequest;
+import com.mc.citizen.model.ApiCitizenResponse;
+import com.mc.citizen.service.CitizenService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.UUID;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/api")
+public class CitizenController implements RegistrationControllerApi {
+
+    private final CitizenService citizenService;
+
+    @Override
+    public ResponseEntity<List<ApiCitizenResponse>> getAllCitizens() {
+        return ResponseEntity.ok(citizenService.getCitizens());
+    }
+
+    @Override
+    public ResponseEntity<ApiCitizenResponse> getCitizenById(UUID citizenId) {
+        return ResponseEntity.ok(citizenService.getCitizenById(citizenId));
+    }
+
+    @Override
+    public ResponseEntity<ApiCitizenResponse> createCitizen(ApiCitizenRequest apiCitizenRequest) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(citizenService.createCitizen(apiCitizenRequest));
+    }
+
+    @Override
+    public ResponseEntity<ApiCitizenResponse> updateCitizen(UUID citizenId, ApiCitizenRequest apiCitizenRequest) {
+        return ResponseEntity.accepted().body(citizenService.updateCitizen(citizenId, apiCitizenRequest));
+    }
+
+    @Override
+    public ResponseEntity<Void> deleteCitizen(UUID citizenId) {
+        citizenService.deleteCitizen(citizenId);
+        return ResponseEntity.noContent().build();
+    }
+}
