@@ -1,0 +1,31 @@
+spring:
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            # OAuth Service Routes
+            - id: auth-service-route
+              uri: http://auth-service:9097
+              predicates:
+                - Path=/api/auth/**
+              filters:
+                - StripPrefix=0
+
+            # Visa Service Routes
+            - id: visa-service-route
+              uri: http://visa-service:9096
+              predicates:
+                - Path=/api/visas/**
+              filters:
+                - StripPrefix=0
+                - JwtValidationFilterFactory
+
+            # Registration Service Routes
+            - id: citizen-service-route
+              uri: http://citizen-service:9091
+              predicates:
+                - Path=/api/citizens/**
+              filters:
+                - StripPrefix=0
+                - JwtValidationFilterFactory

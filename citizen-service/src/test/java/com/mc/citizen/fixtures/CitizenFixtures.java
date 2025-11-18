@@ -96,8 +96,6 @@ public class CitizenFixtures {
             )
     );
 
-    public static List<ApiCitizenRequest> requestList = List.of(request1, request2);
-
     public static ApiCitizenRequest updatedRequest1 = new ApiCitizenRequest(
             List.of(ApiTitle.DR),
             ApiGender.MALE,

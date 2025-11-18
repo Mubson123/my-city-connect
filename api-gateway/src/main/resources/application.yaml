@@ -1,0 +1,9 @@
+server:
+  port: 9098
+
+spring:
+  application:
+    name: api-gateway
+
+jwt:
+  secret: ${JWT_SECRET:flpZVEZrUG1ORD01Y2MxInkyP2oiQFFqeTN0TXk4NTk=}
