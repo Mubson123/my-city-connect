@@ -14,8 +14,6 @@ import org.springframework.util.StringUtils;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 import java.util.function.Function;
 
@@ -23,11 +21,11 @@ import java.util.function.Function;
 @Service
 public class JwtService {
     @Value("${jwt.secret}")
-    private String jwtSecret;
+    String jwtSecret;
     @Value("${jwt.expiration-time}")
-    private Long jwtExpirationMs;
+    Long jwtExpirationMs;
     @Value("${jwt.refresh-expiration-time}")
-    private Long jwtRefreshExpirationMs;
+    Long jwtRefreshExpirationMs;
 
     private SecretKey getSecretKey() {
         byte[] keyBytes = Decoders.BASE64.decode(jwtSecret);
@@ -47,15 +45,11 @@ public class JwtService {
     }
 
     public String generateAccessToken(Authentication authentication) {
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("tokenType", "access");
-        return generateToken(authentication, jwtExpirationMs, claims);
+        return generateToken(authentication, jwtExpirationMs);
     }
 
     public String generateRefreshToken(Authentication authentication) {
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("tokenType", "refresh");
-        return generateToken(authentication, jwtRefreshExpirationMs, claims);
+        return generateToken(authentication, jwtRefreshExpirationMs);
     }
 
     public String getToken(HttpServletRequest request) {
@@ -110,13 +104,12 @@ public class JwtService {
                 .getPayload();
     }
 
-    private String generateToken(Authentication authentication, Long expirationMs, Map<String, Object> claims) {
+    private String generateToken(Authentication authentication, Long expirationMs) {
         Date now = new Date();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         return Jwts.builder()
                 .subject(userDetails.getUsername())
                 .claim("role", userDetails.getAuthorities())
-                .claims(claims)
                 .issuedAt(now)
                 .header()
                 .add("alg", "HS256")

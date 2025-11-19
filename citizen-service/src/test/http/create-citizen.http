@@ -1,5 +1,5 @@
 ### POST request to create new citizen
-POST http://localhost:9091/api/v2/registration/citizens
+POST http://localhost:9091/api/citizens
 Content-Type: application/json
 
 {

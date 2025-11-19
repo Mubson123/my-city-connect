@@ -1,3 +1,3 @@
 ### GET request to get all citizens
-GET http://localhost:9091/api/v2/registration/citizens
+GET http://localhost:9091/api/citizens
 Content-Type: application/json
